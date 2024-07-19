@@ -16,6 +16,7 @@ public class GroupController : MonoBehaviour
     public GameObject gameOverPrefab;
     public Canvas gameOverCanvas;
     private GameObject instantiatedPopup;
+    private float taskDuration = 6f; // Duration for each task
 
     private void Start()
     {
@@ -24,27 +25,34 @@ public class GroupController : MonoBehaviour
         dataManager.OnGroupStarted(group.groupNo);
         StartNextTask();
         dataManager.OnNewTaskStarted(group.groupNo, currentTask);
-
     }
+
     public void ShowGameOverPopup()
     {
         // Check if currentTask is not task number 1
-        if (currentTask != null && currentTask.taskNo != 1)
+        if (currentTask != null && currentTask.taskNo == 2)
         {
-            if (instantiatedPopup == null)
-            {
-                instantiatedPopup = Instantiate(gameOverPrefab, gameOverCanvas.transform);
-                StartCoroutine(HandleSceneTransition());
-            }
+            // Move to the next task (task number 3)
+            StartNextTask();
+            dataManager.OnNewTaskStarted(group.groupNo, currentTask);
         }
     }
+
+    private void ShowCompletionPopup()
+    {
+        if (currentTask != null && currentTask.taskNo != 1 && currentTask.taskNo != 2 && currentTask.taskNo != 3)
+        {
+            instantiatedPopup = Instantiate(gameOverPrefab, gameOverCanvas.transform);
+            StartCoroutine(HandleSceneTransition());
+        }
+    }
+
     private IEnumerator HandleSceneTransition()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(2.0f);
         dataManager.OnGroupCompleted(group);
         Destroy(instantiatedPopup);
     }
-
 
     private void StartNextTask()
     {
@@ -76,6 +84,10 @@ public class GroupController : MonoBehaviour
             currentTask.playedTime++;
             currentTask.taskObj.SetActive(true);
             gameUi.taskNo.text = $"{group.groupNo}.{currentTask.taskNo}";
+            if (currentTask.taskNo != 2)
+            {
+                StartCoroutine(TaskTimer());
+            }
         }
         else
         {
@@ -85,7 +97,6 @@ public class GroupController : MonoBehaviour
                 TaskList task = group.tasks[taskIndex];
                 taskIndex = (taskIndex + 1) % group.tasks.Count;
                 Debug.Log("the currently task No is  " + taskIndex);
-               
 
                 if (!task.isCompleted && task.playedTime < 2)
                 {
@@ -97,19 +108,52 @@ public class GroupController : MonoBehaviour
 
                     Debug.Log(" current task is no " + taskIndex);
 
+                    if (currentTask.taskNo != 2)
+                    {
+                        StartCoroutine(TaskTimer());
+                    }
                     return;
                 }
-
             }
-
         }
-
     }
 
+    private IEnumerator TaskTimer()
+    {
+        yield return new WaitForSeconds(taskDuration);
+
+        if (currentTask != null)
+        {
+            currentTask.isCompleted = true;
+            dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
+
+            if (AllTasksCompleted())
+            {
+                dataManager.OnGroupCompleted(group);
+            }
+            else
+            {
+                StartNextTask();
+                dataManager.OnNewTaskStarted(group.groupNo, currentTask);
+            }
+        }
+    }
+
+    private bool AllTasksCompleted()
+    {
+        foreach (var task in group.tasks)
+        {
+            if (!task.isCompleted)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void OnEnable()
     {
-        gameUi = FindAnyObjectByType<GameUi>();
+        gameUi = FindObjectOfType<GameUi>();
         gameUi.onWithDrawCLicked += OnWithDraw;
         gameUi.onStartClicked += OnStart;
         gameUi.onSkipClicked += OnSkip;
@@ -137,8 +181,15 @@ public class GroupController : MonoBehaviour
             OnEnd();
         }
         dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
-        StartNextTask();
-        dataManager.OnNewTaskStarted(group.groupNo, currentTask);
+        if (AllTasksCompleted())
+        {
+            dataManager.OnGroupCompleted(group);
+        }
+        else
+        {
+            StartNextTask();
+            dataManager.OnNewTaskStarted(group.groupNo, currentTask);
+        }
     }
 
     private void OnBack()
@@ -168,8 +219,17 @@ public class GroupController : MonoBehaviour
         {
             currentTask.isCompleted = true;
         }
-        StartNextTask();
-        dataManager.OnNewTaskStarted(group.groupNo, currentTask);
+
+        if (AllTasksCompleted())
+        {
+            dataManager.OnGroupCompleted(group);
+        }
+        else
+        {
+            StartNextTask();
+            dataManager.OnNewTaskStarted(group.groupNo, currentTask);
+            ShowCompletionPopup();
+        }
     }
 
     private void OnStart()

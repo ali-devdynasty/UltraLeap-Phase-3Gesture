@@ -87,6 +87,7 @@ public class GameUi : MonoBehaviour
         Debug.Log("OnStartClick called");
         onStartClicked?.Invoke();
         videoController.PlayVideo();
+
     }
 
     private void OnNextClicked()

@@ -747,9 +747,9 @@ RectTransform:
   - {fileID: 5483657090497940409}
   m_Father: {fileID: 5296389526878186512}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 452.50003, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2015397867249857523
@@ -1552,6 +1552,7 @@ MonoBehaviour:
   end: {fileID: 4166240037863169345}
   rec: {fileID: 5965727733188630709}
   taskNo: {fileID: 8105567531564360168}
+  videoController: {fileID: 0}
   notificationManager: {fileID: 7163224288364645894}
 --- !u!1 &5475405339558776587
 GameObject:
@@ -2307,7 +2308,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2075497700137667109}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5258090457035498525}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7764713418245993118
 GameObject:
   m_ObjectHideFlags: 0
