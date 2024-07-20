@@ -763,7 +763,7 @@ RectTransform:
   m_GameObject: {fileID: 536556447}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5127, y: 1.5127, z: 1.5127}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1057407900}
@@ -1311,7 +1311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   English: Arabic
-  Arabis: "\u0627\u0644\u0647\u0646\u062F\u064A\u0629"
+  Arabis: "\u0639\u0631\u0628\u064A"
 --- !u!114 &832664051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,7 +1632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   English: Arabic
-  Arabis: "\u0627\u0644\u0647\u0646\u062F\u064A\u0629"
+  Arabis: "\u0639\u0631\u0628\u064A"
 --- !u!114 &1057407902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2121,23 +2121,28 @@ MonoBehaviour:
       taskNo: 1
       playedTime: 0
       isCompleted: 0
+      taskDuration: 5
     - taskObj: {fileID: 1781382966}
       taskNo: 2
       playedTime: 0
       isCompleted: 0
+      taskDuration: 0
     - taskObj: {fileID: 71441624}
       taskNo: 3
       playedTime: 0
       isCompleted: 0
+      taskDuration: 5
     - taskObj: {fileID: 556808856}
       taskNo: 4
       playedTime: 0
       isCompleted: 0
+      taskDuration: 5
   currentTask:
     taskObj: {fileID: 0}
     taskNo: 0
     playedTime: 0
     isCompleted: 0
+    taskDuration: 0
   gameOverPrefab: {fileID: 6044575461836971648, guid: 2ba469fa97f605b4c9dfe0ff20f420d3, type: 3}
   gameOverCanvas: {fileID: 2003386927}
 --- !u!1 &1773026990
@@ -2505,7 +2510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   English: Arabic
-  Arabis: "\u0627\u0644\u0647\u0646\u062F\u064A\u0629"
+  Arabis: "\u0639\u0631\u0628\u064A"
 --- !u!114 &1856581659
 MonoBehaviour:
   m_ObjectHideFlags: 0
