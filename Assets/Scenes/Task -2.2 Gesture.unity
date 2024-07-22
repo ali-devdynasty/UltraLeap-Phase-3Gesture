@@ -1297,6 +1297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group:
     groupNo: 6
+    taskNumberGet: 2.2
     tasks:
     - taskObj: {fileID: 11077264}
       taskNo: 1

@@ -1513,6 +1513,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 442472819}
     m_Modifications:
+    - target: {fileID: 515105419288410496, guid: e7d8a9c3b94d3464485973b55beabb09, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 515105419288410496, guid: e7d8a9c3b94d3464485973b55beabb09, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 515105419288410496, guid: e7d8a9c3b94d3464485973b55beabb09, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 515105419288410496, guid: e7d8a9c3b94d3464485973b55beabb09, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 728535297078532350, guid: e7d8a9c3b94d3464485973b55beabb09, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1806,6 +1822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group:
     groupNo: 2
+    taskNumberGet: 1.2
     tasks:
     - taskObj: {fileID: 1148410236}
       taskNo: 1

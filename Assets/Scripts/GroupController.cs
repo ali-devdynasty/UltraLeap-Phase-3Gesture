@@ -1,8 +1,9 @@
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class GroupController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class GroupController : MonoBehaviour
     public GameObject gameOverPrefab;
     public Canvas gameOverCanvas;
     private GameObject instantiatedPopup;
-
+ 
     private void Start()
     {
         // Start the group when the script starts
@@ -38,6 +39,7 @@ public class GroupController : MonoBehaviour
             MoveToNextTask();
         }
     }
+   
 
     private void ShowCompletionPopup()
     {
@@ -45,6 +47,7 @@ public class GroupController : MonoBehaviour
         if (AllTasksCompleted())
         {
             HandleSceneTransition();
+
         }
     }
 
@@ -77,6 +80,9 @@ public class GroupController : MonoBehaviour
         {
             TaskList task = group.tasks[taskIndex];
             taskIndex = (taskIndex + 1) % group.tasks.Count;
+            Debug.Log($"Task index updated to: {taskIndex}");
+           
+
 
             if (!task.isCompleted && task.playedTime < 2)
             {
@@ -84,13 +90,13 @@ public class GroupController : MonoBehaviour
                 currentTask.playedTime++;
 
                 task.taskObj.SetActive(true);
-                gameUi.taskNo.text = $"{group.groupNo}.{task.taskNo}";
+                //gameUi.taskNo.text = $"/*{group.groupNo}.{task.taskNo}*/";
+                gameUi.taskNo.text = $"{group.taskNumberGet}";
 
                 Debug.Log("Current task is No " + task.taskNo);
                 if (currentTask.taskNo == 4)
                 {
                     instantiatedPopup = Instantiate(gameOverPrefab, gameOverCanvas.transform);
-
                 }
 
                 // Check task number and set the appropriate timer
@@ -133,7 +139,7 @@ public class GroupController : MonoBehaviour
             case 1:
             case 3:
             case 4:
-                return 6f; // Example duration, set your actual duration here
+                return 10f; // Example duration, set your actual duration here
             default:
                 return 0f;
         }
@@ -228,7 +234,23 @@ public class GroupController : MonoBehaviour
         {
             currentTask.isCompleted = true;
         }
-        MoveToNextTask();
+        // Load the next group scene
+        int nextGroupNo = group.groupNo + 1;
+        int nextSceneNo = nextGroupNo + 2; // Assuming your scenes are numbered accordingly
+
+        Debug.Log($"Loading next group: {nextGroupNo}, scene: {nextSceneNo}");
+
+        // Ensure the next scene exists and can be loaded
+        if (nextSceneNo < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneNo);
+        }
+        else
+        {
+            Debug.LogWarning("Next scene number is out of build settings range.");
+        }
+
+
     }
 
 
@@ -252,6 +274,7 @@ public class GroupController : MonoBehaviour
 public class Group
 {
     public int groupNo;
+    public string taskNumberGet;
     public List<TaskList> tasks;
 }
 
