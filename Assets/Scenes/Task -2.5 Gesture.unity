@@ -1975,6 +1975,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8765014642962826331, guid: e7d8a9c3b94d3464485973b55beabb09, type: 3}
+      propertyPath: videoController
+      value: 
+      objectReference: {fileID: 1791803342}
     - target: {fileID: 8772585668469081992, guid: e7d8a9c3b94d3464485973b55beabb09, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -2028,7 +2032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1126614278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3081,7 +3085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!328 &1522912828
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -3090,7 +3094,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522912827}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: da38793decd94984598dba033009a0d9, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: da5648126d4ec2640b7c6fb325c8f3bf, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -3368,9 +3372,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669474665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854d3f2ff87312c479cdd27c85524df2, type: 3}
+  m_Script: {fileID: 11500000, guid: ead6ccbafa34636428351103efec0fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leapProvider: {fileID: 0}
+  swipeThreshold: 0.1
+  swipeSpeedThreshold: 1.5
+  groupController: {fileID: 514659726}
 --- !u!1 &1671528525
 GameObject:
   m_ObjectHideFlags: 0
@@ -3617,12 +3625,12 @@ GameObject:
   - component: {fileID: 1791803343}
   - component: {fileID: 1791803342}
   m_Layer: 0
-  m_Name: VideoManager
+  m_Name: VideoController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1791803342
 MonoBehaviour:
   m_ObjectHideFlags: 0

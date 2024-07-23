@@ -115,7 +115,7 @@ public class GroupController : MonoBehaviour
         if (currentTask != null)
         {
             currentTask.isCompleted = true;
-            dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
+            //dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
             Debug.Log($"Task {currentTask.taskNo} is marked as completed.");
 
             if (AllTasksCompleted())
@@ -139,7 +139,7 @@ public class GroupController : MonoBehaviour
             case 1:
             case 3:
             case 4:
-                return 10f; // Example duration, set your actual duration here
+                return 5f; // Example duration, set your actual duration here
             default:
                 return 0f;
         }
@@ -148,7 +148,7 @@ public class GroupController : MonoBehaviour
     private void MoveToNextTask()
     {
         currentTask.isCompleted = true;
-        dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
+        //dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
         StartNextTask();
         dataManager.OnNewTaskStarted(group.groupNo, currentTask);
     }

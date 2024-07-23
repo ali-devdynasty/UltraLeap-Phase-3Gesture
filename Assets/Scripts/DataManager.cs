@@ -282,10 +282,10 @@ public class DataManager : MonoBehaviour
 
         TaskTimer.StartTimer();
         var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
-        var subtaskNo = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Count + 1;
-        subTask.SubTaskNo = subtaskNo.ToString(); 
+        var subtaskNo = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Count + 1; // + 1
+        subTask.SubTaskNo = subtaskNo.ToString();
         sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Add(subTask);
-        
+
     }
 
     private string GetCurrentTime()
