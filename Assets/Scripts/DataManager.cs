@@ -301,33 +301,22 @@ public class DataManager : MonoBehaviour
     internal void OnLastTaskCompleted(int groupNo, TaskList currentTask)
     {
         var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
-        Debug.Log($"groupNo: {groupNo}, taskno: {taskno}, playedTime: {currentTask.playedTime}");
+        var task = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1];
 
-        if (groupNo - 1 < sessionData.groupData.Count &&
-            taskno < sessionData.groupData[groupNo - 1].tasks.Count &&
-            currentTask.playedTime - 1 < sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Count)
+        if (currentTask.playedTime == 2)
         {
-            var task = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1];
-            Debug.Log($"Accessing task: {task}");
-
-            // Proceed with your logic
-            if (currentTask.playedTime == 2)
-            {
-                currentTask.isCompleted = true;
-            }
-
-            task.state = State.Completed;
-
-            var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
-            task.totalTime = totaltime.ToString();
-            task.timeWhenTask_COmpleted = GetCurrentTime();
-
-            Debug.Log($"Task {currentTask.taskNo} in Group {groupNo} has been completed. Total time: {task.totalTime}");
+            currentTask.isCompleted = true;
         }
-        else
-        {
-            Debug.LogError("Index out of range");
-        }
+
+        task.state = State.Completed;
+
+        var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
+
+        task.totalTime = totaltime.ToString();
+
+        task.timeWhenTask_COmpleted = GetCurrentTime();
+
+
     }
 
     IEnumerator startHandRecording(Chirality hand, int groupNo , TaskList currenttask)

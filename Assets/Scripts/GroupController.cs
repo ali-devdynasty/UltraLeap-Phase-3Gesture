@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -58,7 +59,7 @@ public class GroupController : MonoBehaviour
         Destroy(instantiatedPopup);
     }
 
-    private void StartNextTask()
+    private void StartNextTask(bool repeatTask = false)
     {
         Debug.Log("Starting next task");
         if (AllTasksCompleted())
@@ -75,47 +76,76 @@ public class GroupController : MonoBehaviour
             task.taskObj.SetActive(false);
         }
 
-        // Find the next uncompleted task in order
-        for (int i = 0; i < group.tasks.Count; i++)
+        if (!repeatTask)
         {
-            TaskList task = group.tasks[taskIndex];
-            taskIndex = (taskIndex + 1) % group.tasks.Count;
-            Debug.Log($"Task index updated to: {taskIndex}");
-           
-
-
-            if (!task.isCompleted && task.playedTime < 2)
+            // Find the next uncompleted task in order
+            for (int i = 0; i < group.tasks.Count; i++)
             {
-                currentTask = task;
-                currentTask.playedTime++;
+                TaskList task = group.tasks[taskIndex];
+                taskIndex = (taskIndex + 1) % group.tasks.Count;
+                Debug.Log($"Task index updated to: {taskIndex}");
 
-                task.taskObj.SetActive(true);
-                //gameUi.taskNo.text = $"/*{group.groupNo}.{task.taskNo}*/";
+                if (!task.isCompleted && task.playedTime < 2)
+                {
+                    currentTask = task;
+                    currentTask.playedTime++;
+
+                    task.taskObj.SetActive(true);
+                    //gameUi.taskNo.text = $"/*{group.groupNo}.{task.taskNo}*/";
+                    gameUi.taskNo.text = $"{group.taskNumberGet}";
+
+                    Debug.Log("Current task is No " + task.taskNo);
+                    if (currentTask.taskNo == 4)
+                    {
+                        instantiatedPopup = Instantiate(gameOverPrefab, gameOverCanvas.transform);
+                    }
+
+                    // Check task number and set the appropriate timer
+                    if (currentTask.taskNo != 2)
+                    {
+                        Invoke(nameof(TaskTimerCompleted), GetTaskDuration(currentTask.taskNo));
+                    }
+                    return;
+                }
+            }
+        }
+        else
+        {
+            // Handle task repetition
+            if (currentTask != null)
+            {
+                currentTask.playedTime++;
+                currentTask.taskObj.SetActive(true);
                 gameUi.taskNo.text = $"{group.taskNumberGet}";
 
-                Debug.Log("Current task is No " + task.taskNo);
+                Debug.Log("Repeating current task No " + currentTask.taskNo);
                 if (currentTask.taskNo == 4)
                 {
                     instantiatedPopup = Instantiate(gameOverPrefab, gameOverCanvas.transform);
                 }
 
-                // Check task number and set the appropriate timer
-                if (currentTask.taskNo != 2)
-                {
-                    Invoke(nameof(TaskTimerCompleted), GetTaskDuration(currentTask.taskNo));
-                }
-                return;
+                StartTaskTimer();
+                
             }
         }
     }
+     
+    private void StartTaskTimer()
+    {
+        CancelInvoke(nameof(TaskTimerCompleted));
 
+        if (currentTask != null && currentTask.taskNo != 2)
+        {
+            Invoke(nameof(TaskTimerCompleted), GetTaskDuration(currentTask.taskNo));
+        }
+    }
     private void TaskTimerCompleted()
     {
         Debug.Log("Task timer completed");
         if (currentTask != null)
         {
             currentTask.isCompleted = true;
-            //dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
+            dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
             Debug.Log($"Task {currentTask.taskNo} is marked as completed.");
 
             if (AllTasksCompleted())
@@ -139,7 +169,7 @@ public class GroupController : MonoBehaviour
             case 1:
             case 3:
             case 4:
-                return 5f; // Example duration, set your actual duration here
+                return 4f; // Example duration, set your actual duration here
             default:
                 return 0f;
         }
@@ -148,7 +178,7 @@ public class GroupController : MonoBehaviour
     private void MoveToNextTask()
     {
         currentTask.isCompleted = true;
-        //dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
+        dataManager.OnLastTaskCompleted(group.groupNo, currentTask);
         StartNextTask();
         dataManager.OnNewTaskStarted(group.groupNo, currentTask);
     }
@@ -221,7 +251,10 @@ public class GroupController : MonoBehaviour
     private void OnRepeat()
     {
         dataManager.OnRepeatTaskRecording(group.groupNo, currentTask);
+        StartNextTask(true);    
     }
+
+  
 
     private void OnSkip()
     {
