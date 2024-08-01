@@ -25,11 +25,12 @@ public class GroupController : MonoBehaviour
         Debug.Log("GroupController Start");
         dataManager = FindObjectOfType<DataManager>();
         gameUi = FindObjectOfType<GameUi>();
-        dataManager.OnGroupStarted(group.groupNo);
-        StartNextTask();
-        dataManager.OnNewTaskStarted(group.groupNo, currentTask);
+        //dataManager.OnGroupStarted(group.groupNo);
+        ////StartNextTask();
+        //dataManager.OnNewTaskStarted(group.groupNo, currentTask);
     }
 
+    
     public void ShowGameOverPopup()
     {
         // Check if currentTask is task number 2
@@ -169,7 +170,7 @@ public class GroupController : MonoBehaviour
             case 1:
             case 3:
             case 4:
-                return 4f; // Example duration, set your actual duration here
+                return 10f; // Example duration, set your actual duration here
             default:
                 return 0f;
         }
@@ -289,7 +290,10 @@ public class GroupController : MonoBehaviour
 
     private void OnStart()
     {
-        dataManager.OnStartButtonPressedOnTask(group.groupNo, currentTask);
+        //dataManager.OnStartButtonPressedOnTask(group.groupNo, currentTask);
+        dataManager.OnGroupStarted(group.groupNo);
+        StartNextTask();
+        dataManager.OnNewTaskStarted(group.groupNo, currentTask);
     }
 
     private void OnWithDraw()

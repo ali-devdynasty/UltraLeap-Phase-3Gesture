@@ -13,7 +13,21 @@ public class PinchVerticalDrag : MonoBehaviour
     void Update()
     {
         // Get the first hand detected
-        _hand = Hands.Provider.CurrentFrame.Hands[0];
+
+        //try getting the hand from the provider , first try for hands[0] , if not found then try for hands[1]
+
+        if(Hands.Provider.CurrentFrame.Hands[0] != null)
+        {
+            _hand = Hands.Provider.CurrentFrame.Hands[0];
+        }
+        else if (Hands.Provider.CurrentFrame.Hands[1] != null)
+        {
+            _hand = Hands.Provider.CurrentFrame.Hands[1];
+        }
+        else
+        {
+            return;
+        }
 
         if (_hand != null)
         {

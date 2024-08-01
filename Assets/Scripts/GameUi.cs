@@ -27,6 +27,7 @@ public class GameUi : MonoBehaviour
         repeat.onClick.AddListener(OnRepeatClicked);
         end.onClick.AddListener(OnEndClicked);
         repeat.interactable = false;
+        if(videoController == null) { videoController = FindAnyObjectByType<VideoController>(); }
     }
 
     private void OnEnable()

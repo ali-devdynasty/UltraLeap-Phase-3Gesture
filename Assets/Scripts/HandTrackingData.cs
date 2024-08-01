@@ -13,7 +13,7 @@ public class HandTrackingData : MonoBehaviour
 
         if (Hands.Provider.GetHand(_hand) == null)
         {
-            Debug.Log("Hand Not Founded");
+            //Debug.Log("Hand Not Founded");
             return null;
         }
        
