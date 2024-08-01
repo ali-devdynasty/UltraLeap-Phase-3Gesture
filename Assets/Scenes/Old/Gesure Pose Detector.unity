@@ -233,7 +233,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &347433265
 Transform:
   m_ObjectHideFlags: 0
@@ -261,7 +261,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7957eeb50a2b66e4fb610b6d1b5f57a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groupController: {fileID: 0}
 --- !u!1 &504944771
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &764182217
 Transform:
   m_ObjectHideFlags: 0
@@ -628,6 +627,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1302470819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1302470821}
+  - component: {fileID: 1302470820}
+  m_Layer: 0
+  m_Name: Gesture 1.2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1302470820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302470819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854d3f2ff87312c479cdd27c85524df2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1302470821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302470819}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.29, z: -0.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1407671538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -704,12 +747,12 @@ GameObject:
   - component: {fileID: 1469263793}
   - component: {fileID: 1469263792}
   m_Layer: 0
-  m_Name: Gesture 1
+  m_Name: Gesture 1.1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1469263792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1067,6 +1110,7 @@ SceneRoots:
   - {fileID: 1407671538}
   - {fileID: 2089244797}
   - {fileID: 1469263793}
+  - {fileID: 1302470821}
   - {fileID: 347433265}
   - {fileID: 504944773}
   - {fileID: 1128479252}
