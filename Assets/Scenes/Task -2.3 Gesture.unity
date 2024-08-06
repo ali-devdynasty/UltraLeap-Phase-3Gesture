@@ -978,7 +978,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 768115536}
-  - component: {fileID: 768115538}
+  - component: {fileID: 768115537}
   m_Layer: 0
   m_Name: Index Swipe Gesture
   m_TagString: Untagged
@@ -1001,7 +1001,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &768115538
+--- !u!114 &768115537
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1010,13 +1010,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 768115535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead6ccbafa34636428351103efec0fe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 853423dfc227e69438c2f0c600703a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 0}
-  swipeThreshold: 0.1
-  swipeSpeedThreshold: 1.5
-  groupController: {fileID: 514659726}
 --- !u!1001 &944733678
 PrefabInstance:
   m_ObjectHideFlags: 0

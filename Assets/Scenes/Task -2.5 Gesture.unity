@@ -3372,13 +3372,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669474665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead6ccbafa34636428351103efec0fe9, type: 3}
+  m_Script: {fileID: 11500000, guid: 853423dfc227e69438c2f0c600703a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leapProvider: {fileID: 0}
-  swipeThreshold: 0.1
-  swipeSpeedThreshold: 1.5
-  groupController: {fileID: 514659726}
 --- !u!1 &1671528525
 GameObject:
   m_ObjectHideFlags: 0

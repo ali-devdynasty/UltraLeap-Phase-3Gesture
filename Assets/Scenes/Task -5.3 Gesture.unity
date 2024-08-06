@@ -894,7 +894,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464234828}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 54353fef4f913234fb511e68ce803044, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 1dd6a69feaeeb60439baf611804c24c5, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -4334,7 +4334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1731990838}
-  - component: {fileID: 1731990837}
+  - component: {fileID: 1731990839}
   m_Layer: 0
   m_Name: PinchVerticalDrag
   m_TagString: Untagged
@@ -4342,19 +4342,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1731990837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731990836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0754c5542780d040bca52d81215eb69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groupController: {fileID: 772136847}
 --- !u!4 &1731990838
 Transform:
   m_ObjectHideFlags: 0
@@ -4370,6 +4357,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1731990839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731990836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7957eeb50a2b66e4fb610b6d1b5f57a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groupController: {fileID: 772136847}
 --- !u!1 &1763276534
 GameObject:
   m_ObjectHideFlags: 0
