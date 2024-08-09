@@ -18,8 +18,8 @@ public class GroupController : MonoBehaviour
     public GameObject gameOverPrefab;
     public Canvas gameOverCanvas;
     private GameObject instantiatedPopup;
-   
- 
+
+
     private void Start()
     {
         // Start the group when the script starts
@@ -86,6 +86,8 @@ public class GroupController : MonoBehaviour
                 TaskList task = group.tasks[taskIndex];
                 taskIndex = (taskIndex + 1) % group.tasks.Count;
                 Debug.Log($"Task index updated to: {taskIndex}");
+                //gameUi.UpdateButtons(2);
+
 
                 if (!task.isCompleted && task.playedTime < 2)
                 {
@@ -96,7 +98,18 @@ public class GroupController : MonoBehaviour
                     //gameUi.taskNo.text = $"/*{group.groupNo}.{task.taskNo}*/";
                     gameUi.taskNo.text = $"{group.taskNumberGet}";
 
-                    Debug.Log("Current task is No " + task.taskNo);
+                    Debug.Log("Current task is No " + task.taskNo); 
+                    if (currentTask.taskNo == 2 || currentTask.taskNo == 3 || currentTask.taskNo == 4 )
+                    {
+                        gameUi.repeat.gameObject.SetActive(true);
+                        gameUi.end.gameObject.SetActive(true);
+                        gameUi.start.interactable = false;
+                    }
+                    else
+                    {
+                        gameUi.repeat.gameObject.SetActive(false);
+                        gameUi.end.gameObject.SetActive(false);
+                    }
                     if (currentTask.taskNo == 4)
                     {
                         instantiatedPopup = Instantiate(gameOverPrefab, gameOverCanvas.transform);
@@ -171,7 +184,7 @@ public class GroupController : MonoBehaviour
             case 1:
             case 3:
             case 4:
-                return 2f; // Example duration, set your actual duration here
+                return 4f; // Example duration, set your actual duration here
             default:
                 return 0f;
         }
@@ -247,16 +260,21 @@ public class GroupController : MonoBehaviour
 
     private void OnEnd()
     {
+        Time.timeScale = 0f;
+        Debug.Log("Stop the current scene");
         dataManager.OnEndTaskRecording(group.groupNo, currentTask);
     }
 
     private void OnRepeat()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log(" reload the current scnen");
         dataManager.OnRepeatTaskRecording(group.groupNo, currentTask);
-        StartNextTask(true);    
+        //StartNextTask(true);    
+
     }
 
-  
+
 
     private void OnSkip()
     {
@@ -322,7 +340,6 @@ public class TaskList
 
     public GameObject taskObj;
     public int taskNo;
-    //public GameObject slectedPrefabs;
     [HideInInspector]
     public int playedTime;
     public bool isCompleted = false;

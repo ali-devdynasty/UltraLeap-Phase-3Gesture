@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -15,10 +16,6 @@ public class GameUi : MonoBehaviour
     public Text taskNo;
     public VideoController videoController;
     public NotificationManager notificationManager;
-    //public int taskNumber;
-
-  
-
     private void Awake()
     {
         Debug.Log("Awake called");
@@ -29,30 +26,10 @@ public class GameUi : MonoBehaviour
         start.onClick.AddListener(OnStartClicked);
         repeat.onClick.AddListener(OnRepeatClicked);
         end.onClick.AddListener(OnEndClicked);
-        repeat.interactable = false;
+        //repeat.interactable = false;
         if (videoController == null) { videoController = FindAnyObjectByType<VideoController>(); }
-        //ConfigureButtons();
-
-        //if (gameObject.tag == "GameUI3Btns")
-        //{
-        //    next.gameObject.SetActive(false);
-        //    repeat.gameObject.SetActive(false);
-        //    end.gameObject.SetActive(false);
-        //    back.gameObject.SetActive(false);
-
-        //}
-        //else if (gameObject.tag == "GameUI5Btns")
-        //{
-        //    // All buttons are already active by default
-        //}
-        //else
-        //{
-        //    Debug.LogError("Prefab does not have a valid tag!");
-        //}
-
     }
 
- 
     private void OnEnable()
     {
         Debug.Log("OnEnable called");
@@ -104,6 +81,7 @@ public class GameUi : MonoBehaviour
     {
         Debug.Log("OnRepeatClick called");
         onRepeatClicked?.Invoke();
+
     }
 
     private void OnStartClicked()
@@ -140,5 +118,6 @@ public class GameUi : MonoBehaviour
         Debug.Log("OnBackCLicked called");
         onBackCLicked?.Invoke();
     }
-  
+   
+
 }
