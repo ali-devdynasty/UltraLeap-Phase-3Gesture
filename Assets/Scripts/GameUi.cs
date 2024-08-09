@@ -15,6 +15,9 @@ public class GameUi : MonoBehaviour
     public Text taskNo;
     public VideoController videoController;
     public NotificationManager notificationManager;
+    //public int taskNumber;
+
+  
 
     private void Awake()
     {
@@ -27,9 +30,29 @@ public class GameUi : MonoBehaviour
         repeat.onClick.AddListener(OnRepeatClicked);
         end.onClick.AddListener(OnEndClicked);
         repeat.interactable = false;
-        if(videoController == null) { videoController = FindAnyObjectByType<VideoController>(); }
+        if (videoController == null) { videoController = FindAnyObjectByType<VideoController>(); }
+        //ConfigureButtons();
+
+        //if (gameObject.tag == "GameUI3Btns")
+        //{
+        //    next.gameObject.SetActive(false);
+        //    repeat.gameObject.SetActive(false);
+        //    end.gameObject.SetActive(false);
+        //    back.gameObject.SetActive(false);
+
+        //}
+        //else if (gameObject.tag == "GameUI5Btns")
+        //{
+        //    // All buttons are already active by default
+        //}
+        //else
+        //{
+        //    Debug.LogError("Prefab does not have a valid tag!");
+        //}
+
     }
 
+ 
     private void OnEnable()
     {
         Debug.Log("OnEnable called");

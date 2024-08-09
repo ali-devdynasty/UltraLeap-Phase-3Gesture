@@ -1013,6 +1013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 853423dfc227e69438c2f0c600703a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groupController: {fileID: 514659726}
 --- !u!1001 &944733678
 PrefabInstance:
   m_ObjectHideFlags: 0

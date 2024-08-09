@@ -18,6 +18,7 @@ public class GroupController : MonoBehaviour
     public GameObject gameOverPrefab;
     public Canvas gameOverCanvas;
     private GameObject instantiatedPopup;
+   
  
     private void Start()
     {
@@ -170,7 +171,7 @@ public class GroupController : MonoBehaviour
             case 1:
             case 3:
             case 4:
-                return 5f; // Example duration, set your actual duration here
+                return 2f; // Example duration, set your actual duration here
             default:
                 return 0f;
         }
@@ -318,9 +319,12 @@ public class Group
 [Serializable]
 public class TaskList
 {
+
     public GameObject taskObj;
     public int taskNo;
+    //public GameObject slectedPrefabs;
     [HideInInspector]
     public int playedTime;
     public bool isCompleted = false;
+    
 }
