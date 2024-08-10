@@ -87,7 +87,7 @@ namespace Michsky.MUIP
         }
 
         // Obsolete
-        public void OpenNotification() { Open(); }
+        public void OpenNotification() => Open();
         public void CloseNotification() { Close(); }
 
         public void UpdateUI()

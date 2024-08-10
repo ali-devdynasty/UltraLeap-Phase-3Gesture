@@ -49,7 +49,7 @@ public class ZoomOutGes : MonoBehaviour
             isInitialSeparation = true;
             Debug.Log("Initial Separation Detected - Zoom Out");
         }
-        else if (isInitialSeparation && pinchDistance < pinchThreshold)
+        else if (isInitialSeparation && pinchDistance < pinchThreshold && Time.timeScale != 0)
         {
             // Fingers close together after initial separation
             isInitialSeparation = false;

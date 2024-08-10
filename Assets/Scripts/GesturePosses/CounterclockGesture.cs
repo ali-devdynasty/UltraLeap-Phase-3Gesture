@@ -54,7 +54,7 @@ public class CounterclockGesture : MonoBehaviour
 
         float angle = Vector3.SignedAngle(lastDirection, currentDirection, Vector3.up);
 
-        if (angle > minRotationSpeed)
+        if (angle > minRotationSpeed && Time.timeScale !=0)
         {
             Debug.Log("Index finger rotating counterclockwise.");
             groupController.ShowGameOverPopup();

@@ -54,7 +54,7 @@ public class IndexFingerRotationGesture : MonoBehaviour
         }
 
         // Check if angle indicates clockwise rotation
-        if (angle < referenceAngle && angle > referenceAngle - rotationThreshold)
+        if (angle < referenceAngle && angle > referenceAngle - rotationThreshold && Time.timeScale != 0)
         {
             Debug.Log("Index finger rotating ClockWise.");
             groupController.ShowGameOverPopup();

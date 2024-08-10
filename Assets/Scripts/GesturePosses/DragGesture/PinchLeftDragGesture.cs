@@ -36,7 +36,7 @@ public class PinchLeftDragGesture : MonoBehaviour
                     else
                     {
                         // Check for leftward drag with a threshold and palm velocity
-                        if (_previousPinchPosition.x - currentPinchPosition.x > DragThreshold && palmVelocity.x < PalmVelocityThreshold)
+                        if (_previousPinchPosition.x - currentPinchPosition.x > DragThreshold && palmVelocity.x < PalmVelocityThreshold && Time.timeScale != 0)
                         {
                             Debug.Log("Pinch Leftward Drag detected");
                             groupController.ShowGameOverPopup();

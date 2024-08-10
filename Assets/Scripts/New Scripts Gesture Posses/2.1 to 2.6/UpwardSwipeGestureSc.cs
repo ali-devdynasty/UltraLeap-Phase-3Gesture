@@ -30,7 +30,7 @@ public class UpwardSwipeGestureSc : MonoBehaviour
             }
 
             // Check if only the index finger is extended and moving upward
-            if (IsIndexFingerOnlyExtended(hand) && IsMovingUpward(hand))
+            if (IsIndexFingerOnlyExtended(hand) && IsMovingUpward(hand) && Time.timeScale != 0)
             {
                 indexFingerExtendedUpward = true;
                 Debug.Log("Index finger extended upward swipe detected");

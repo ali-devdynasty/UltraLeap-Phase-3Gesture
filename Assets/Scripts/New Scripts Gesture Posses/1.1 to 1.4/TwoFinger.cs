@@ -26,7 +26,7 @@ public class TwoFinger : MonoBehaviour
             if (IsTwoFingerTapPose(hand))
             {
                 currentTwoFingerPoseDetected = true;
-                if (!twoFingerPoseDetected)
+                if (!twoFingerPoseDetected && Time.timeScale != 0)
                 {
                     Debug.Log("Single Tap (two-finger) detected");
                     twoFingerPoseDetected = true;

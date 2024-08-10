@@ -27,7 +27,7 @@ public class RightwardSwipeGestureSc : MonoBehaviour
             }
 
             // Check if only the index finger is extended and moving rightward
-            if (IsIndexFingerOnlyExtended(hand) && IsMovingRightward(hand))
+            if (IsIndexFingerOnlyExtended(hand) && IsMovingRightward(hand) && Time.timeScale != 0)
             {
                 Debug.Log("Index finger extended rightward swipe detected");
                 groupController.ShowGameOverPopup();

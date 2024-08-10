@@ -26,7 +26,7 @@ public class IndexFingerExtendedSc : MonoBehaviour
             if (IsSingleTapPose(hand))
             {
                 currentSingleFingerPoseDetected = true;
-                if (!singleFingerPoseDetected)
+                if (!singleFingerPoseDetected && Time.timeScale !=0)
                 {
                     Debug.Log("Single Tap (one-finger) detected");
                     singleFingerPoseDetected = true;

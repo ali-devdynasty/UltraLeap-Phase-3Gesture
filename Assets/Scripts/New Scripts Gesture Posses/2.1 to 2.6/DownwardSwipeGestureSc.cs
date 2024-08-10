@@ -20,7 +20,7 @@ public class DownwardSwipeDetection : MonoBehaviour
         foreach (Hand hand in frame.Hands)
         {
             // Check if only the index finger is extended and moving downward
-            if (IsIndexFingerOnlyExtended(hand) && -hand.PalmVelocity.y > 0.25f) // Adjust the threshold as needed
+            if (IsIndexFingerOnlyExtended(hand) && -hand.PalmVelocity.y > 0.25f && Time.timeScale != 0) // Adjust the threshold as needed
             {
                 indexFingerExtendedDownward = true;
                 Debug.Log("Downward swipe detected");

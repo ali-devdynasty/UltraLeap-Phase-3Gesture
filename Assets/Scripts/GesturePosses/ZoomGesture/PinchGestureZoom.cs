@@ -11,6 +11,7 @@ public class PinchZoomGesture : MonoBehaviour
 
     private bool isInitialPinch = false;
     private float initialPinchDistance = 0f;
+    public GroupController groupController;
 
     void Start()
     {
@@ -42,7 +43,7 @@ public class PinchZoomGesture : MonoBehaviour
                 initialPinchDistance = pinchDistance;
                 Debug.Log("Initial Pinch Detected");
             }
-            else if (isInitialPinch && pinchDistance >= pinchThreshold)
+            else if (isInitialPinch && pinchDistance >= pinchThreshold && Time.timeScale!= 0)
             {
                 // Fingers spread out after initial pinch
                 isInitialPinch = false;
@@ -54,7 +55,9 @@ public class PinchZoomGesture : MonoBehaviour
                 // Apply zoom (e.g., scale the object)
                 transform.localScale = Vector3.one * Mathf.Clamp(newScale, 0.5f, 2f); // Limit zoom range
 
-                Debug.Log($"Zooming In (Factor: {zoomFactor:F2})");
+                Debug.Log($"Zooming In)");
+                groupController.ShowGameOverPopup();
+
             }
         }
     }

@@ -385,11 +385,16 @@ public class DataManager : MonoBehaviour
         if (Hands.Provider.GetHand(Chirality.Right) == null && Hands.Provider.GetHand(Chirality.Left) == null)
         {
             Debug.Log("Hand Not Founded");
-            if(FindAnyObjectByType<GameUi>() != null)
+            var gameUiInstance = FindAnyObjectByType<GameUi>();
+            if (gameUiInstance != null)
             {
-                FindAnyObjectByType<GameUi>().Notify();
+                Debug.Log("GameUi instance found, calling Notify...");
+                gameUiInstance.Notify();
             }
-           
+            else
+            {
+                Debug.LogWarning("GameUi instance not found");
+            }
         }
     }
 

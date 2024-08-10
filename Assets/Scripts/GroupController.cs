@@ -35,7 +35,7 @@ public class GroupController : MonoBehaviour
     public void ShowGameOverPopup()
     {
         // Check if currentTask is task number 2
-        if (currentTask != null && currentTask.taskNo == 2)
+        if (currentTask != null && currentTask.taskNo == 2 && Time.timeScale !=0 )
         {
             Debug.Log("Showing Game Over Popup");
             // Move to the next task (task number 3)
@@ -267,6 +267,7 @@ public class GroupController : MonoBehaviour
 
     private void OnRepeat()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Debug.Log(" reload the current scnen");
         dataManager.OnRepeatTaskRecording(group.groupNo, currentTask);
@@ -278,6 +279,7 @@ public class GroupController : MonoBehaviour
 
     private void OnSkip()
     {
+        Time.timeScale = 1f;
         if (dataManager.isRecording)
         {
             OnEnd();
@@ -317,6 +319,7 @@ public class GroupController : MonoBehaviour
 
     private void OnWithDraw()
     {
+        Time.timeScale = 1f;
         if (dataManager.isRecording)
         {
             OnEnd();

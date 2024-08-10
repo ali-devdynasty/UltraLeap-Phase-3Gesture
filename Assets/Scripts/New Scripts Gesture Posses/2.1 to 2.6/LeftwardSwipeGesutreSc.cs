@@ -29,7 +29,7 @@ public class LeftwardSwipeGestureSc : MonoBehaviour
             }
 
             // Check if only the index finger is extended and moving leftward
-            if (IsIndexFingerOnlyExtended(hand) && IsMovingLeftward(hand))
+            if (IsIndexFingerOnlyExtended(hand) && IsMovingLeftward(hand) && Time.timeScale != 0)
             {
                 indexFingerExtendedLeftward = true;
                 Debug.Log("Index finger extended leftward swipe detected");

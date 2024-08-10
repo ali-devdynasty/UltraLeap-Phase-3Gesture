@@ -28,6 +28,7 @@ public class GameUi : MonoBehaviour
         end.onClick.AddListener(OnEndClicked);
         //repeat.interactable = false;
         if (videoController == null) { videoController = FindAnyObjectByType<VideoController>(); }
+
     }
 
     private void OnEnable()
@@ -54,8 +55,15 @@ public class GameUi : MonoBehaviour
     }
     public void Notify()
     {
-        if(!notificationManager.isOn)
-        notificationManager.OpenNotification();
+        if (notificationManager.isOn)
+        {
+            Debug.Log("Notification manager is on, opening notification...");
+            notificationManager.OpenNotification();
+        }
+        else
+        {
+            Debug.LogWarning("Notification manager is not turned on");
+        }
     }
     private void OnRecordingRepeat()
     {
