@@ -60,5 +60,9 @@ public class PinchZoomGesture : MonoBehaviour
 
             }
         }
+        if (groupController == null)
+        {
+            groupController = FindObjectOfType<GroupController>();
+        }
     }
 }
