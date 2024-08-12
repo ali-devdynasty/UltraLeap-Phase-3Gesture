@@ -1,9 +1,7 @@
-using Leap;
 using Leap.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -323,60 +321,81 @@ public class DataManager : MonoBehaviour
     internal void OnLastTaskCompleted(int groupNo, TaskList currentTask)
     {
         var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
-        try
-        {
-
         var task = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1];
-        }
-        catch(ArgumentOutOfRangeException ex)
-        {
-            Debug.Log(" there is exception please give me code");
-        }
 
         if (currentTask.playedTime == 2)
         {
             currentTask.isCompleted = true;
         }
 
-        //task.state = State.Completed;
+        task.state = State.Completed;
 
-        //var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
+        var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
 
-        //task.totalTime = totaltime.ToString();
+        task.totalTime = totaltime.ToString();
 
-        //task.timeWhenTask_COmpleted = GetCurrentTime();
+        task.timeWhenTask_COmpleted = GetCurrentTime();
 
 
     }
-    IEnumerator startHandRecording(Chirality hand, int groupNo , TaskList currenttask)
+
+    IEnumerator startHandRecording(Chirality hand, int groupNo, TaskList currentTask)
     {
+        Debug.Log($"Starting hand recording for hand: {hand}, group: {groupNo}, task: {currentTask?.taskNo}");
         bool firstDetected = false;
         while (true)
         {
             var data = handTrackingDataRecorder.GetHandTrackingData(hand);
             if (hand == Chirality.Left && data != null)
             {
-                if(firstDetected == false)
+                if (!firstDetected)
                 {
                     firstDetected = true;
-                    var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currenttask);
-                    sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currenttask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); // index
+                    var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
+                    if (taskno == -1)
+                    {
+                        Debug.LogError("currentTask is not in the group.tasks list.");
+                        yield break; // Exit coroutine if task is not found
+                    }
+
+                    // Check if the index is valid before accessing subTasks
+                    if (currentTask.playedTime - 1 < sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Count)
+                    {
+                        sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); // index
+                    }
+                    else
+                    {
+                        Debug.LogError("playedTime index is out of bounds in subTasks.");
+                    }
                 }
                 leftHandData.Add(data);
             }
-            else if(hand == Chirality.Right && data != null)
+            else if (hand == Chirality.Right && data != null)
             {
-                if (firstDetected == false)
+                if (!firstDetected)
                 {
                     firstDetected = true;
-                    var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currenttask);
-                    sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currenttask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); //idex   
+                    var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
+                    if (taskno == -1)
+                    {
+                        Debug.LogError("currentTask is not in the group.tasks list.");
+                        yield break; // Exit coroutine if task is not found
+                    }
+
+                    // Check if the index is valid before accessing subTasks
+                    if (currentTask.playedTime - 1 < sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Count)
+                    {
+                        sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); // index
+                    }
+                    else
+                    {
+                        Debug.LogError("playedTime index is out of bounds in subTasks.");
+                    }
                 }
                 rightHandData.Add(data);
             }
             CheckIfHandDetected();
             yield return new WaitForSeconds(intervalBetweenHandTrackingData);
-
         }
     }
 
@@ -403,6 +422,11 @@ public class DataManager : MonoBehaviour
         groupPlayedStates[group.groupNo - 1].isPlayed = true;
         sessionData.groupData[group.groupNo - 1].State = State.Completed;
         SceneManager.LoadScene(2);
+    }
+
+    internal void OnStartButtonPressedOnTask(int groupNo, List<TaskList> currentTask)
+    {
+        throw new NotImplementedException();
     }
 }
 [Serializable]
