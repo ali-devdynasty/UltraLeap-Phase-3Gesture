@@ -34,45 +34,18 @@ public class PinchZoomGesture : MonoBehaviour
                 continue;
             }
 
-            // Get thumb and index fingers
-            Finger thumb = hand.Fingers[(int)Finger.FingerType.TYPE_THUMB];
-            Finger indexFinger = hand.Fingers[(int)Finger.FingerType.TYPE_INDEX];
+            float pinchDistance = hand.PinchDistance;
 
-            // Check pinch distance between thumb and index finger
-            //float pinchDistance = Vector3.Distance(thumb.TipPosition.ToVector3(), indexFinger.TipPosition.ToVector3());
-
-            // Ensure no other fingers are extended
-            bool otherFingersExtended = false;
-            for (int i = 0; i < hand.Fingers.Count; i++)
-            {
-                if (i != (int)Finger.FingerType.TYPE_THUMB && i != (int)Finger.FingerType.TYPE_INDEX)
-                {
-                    Finger finger = hand.Fingers[i];
-                    if (finger.IsExtended)
-                    {
-                        otherFingersExtended = true;
-                        break;
-                    }
-                }
-            }
-
-            // Proceed only if no other fingers are extended
-            if (otherFingersExtended)
-            {
-                isInitialPinch = false;
-                continue;
-            }
-
-            // Initial pinch detection
             if (!isInitialPinch && pinchDistance < pinchThreshold)
             {
+                // Initial pinch detected
                 isInitialPinch = true;
                 initialPinchDistance = pinchDistance;
                 Debug.Log("Initial Pinch Detected");
             }
-            // Zoom logic when fingers spread after initial pinch
-            else if (isInitialPinch && pinchDistance >= pinchThreshold && Time.timeScale != 0)
+            else if (isInitialPinch && pinchDistance >= pinchThreshold && Time.timeScale!= 0)
             {
+                // Fingers spread out after initial pinch
                 isInitialPinch = false;
 
                 // Calculate zoom factor based on pinch distance change
@@ -82,12 +55,11 @@ public class PinchZoomGesture : MonoBehaviour
                 // Apply zoom (e.g., scale the object)
                 transform.localScale = Vector3.one * Mathf.Clamp(newScale, 0.5f, 2f); // Limit zoom range
 
-                Debug.Log("Zooming In");
+                Debug.Log($"Zooming In)");
                 groupController.OnGestureDetected();
+
             }
         }
-
-        // Ensure groupController is assigned
         if (groupController == null)
         {
             groupController = FindObjectOfType<GroupControllerPhase3>();
