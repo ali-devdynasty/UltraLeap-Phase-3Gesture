@@ -10,7 +10,7 @@ public class PinchLeftDragGesture : MonoBehaviour
     private const float PinchStrengthThreshold = 0.8f;
     private const float DragThreshold = 0.05f;
     private const float PalmVelocityThreshold = -0.25f; // Threshold for leftward palm velocity (negative value)
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Update()
     {
@@ -39,7 +39,7 @@ public class PinchLeftDragGesture : MonoBehaviour
                         if (_previousPinchPosition.x - currentPinchPosition.x > DragThreshold && palmVelocity.x < PalmVelocityThreshold && Time.timeScale != 0)
                         {
                             Debug.Log("Pinch Leftward Drag detected");
-                            groupController.ShowGameOverPopup();
+                            groupController.OnGestureDetected();
                         }
 
                         // Update previous pinch position

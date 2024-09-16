@@ -5,7 +5,7 @@ public class DownwardSwipeDetection : MonoBehaviour
 {
     private Controller controller;
     private bool indexFingerExtendedDownward = false;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class DownwardSwipeDetection : MonoBehaviour
             {
                 indexFingerExtendedDownward = true;
                 Debug.Log("Downward swipe detected");
-                groupController.ShowGameOverPopup();
+                groupController.OnGestureDetected();
             }
 
             if (IsSingleTapPose(hand))

@@ -9,7 +9,7 @@ public class IndexFingerRotationGesture : MonoBehaviour
     const float rotationThreshold = 0.5f; // Adjust threshold as needed
     const float referenceAngle = 90f; // Angle to compare for clockwise rotation
     const Finger.FingerType fingerType = Finger.FingerType.TYPE_INDEX; // Finger type to track
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -57,7 +57,7 @@ public class IndexFingerRotationGesture : MonoBehaviour
         if (angle < referenceAngle && angle > referenceAngle - rotationThreshold && Time.timeScale != 0)
         {
             Debug.Log("Index finger rotating ClockWise.");
-            groupController.ShowGameOverPopup();
+            groupController.OnGestureDetected();
             // Add your clockwise rotation handling code here
         }
     }

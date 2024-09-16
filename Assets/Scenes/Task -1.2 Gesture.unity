@@ -1549,7 +1549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da70493b0bb96e746a3ea7a079de9035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groupController: {fileID: 1747427852}
+  groupController: {fileID: 1747427853}
 --- !u!1001 &1741999486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1561,6 +1561,22 @@ PrefabInstance:
     - target: {fileID: 291758840896959222, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
       propertyPath: m_Name
       value: GameControllUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1518977587268423338, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
       propertyPath: m_Pivot.x
@@ -1642,8 +1658,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2650315358980014562, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6536911632547649267, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
@@ -1689,7 +1737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1747427851}
-  - component: {fileID: 1747427852}
+  - component: {fileID: 1747427853}
   m_Layer: 0
   m_Name: GroupController
   m_TagString: Untagged
@@ -1712,7 +1760,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1747427852
+--- !u!114 &1747427853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1721,36 +1769,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1747427850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aed7f9bb328fa04ca7ab2cd42ea5e60, type: 3}
+  m_Script: {fileID: 11500000, guid: 92ba47f3e0a583a47a2ea8b451bf49e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  group:
-    groupNo: 2
-    taskNumberGet: 1.2
-    tasks:
-    - taskObj: {fileID: 1148410236}
-      taskNo: 1
-      playedTime: 0
-      isCompleted: 0
-    - taskObj: {fileID: 1879118506}
-      taskNo: 2
-      playedTime: 0
-      isCompleted: 0
-    - taskObj: {fileID: 1499157010}
-      taskNo: 3
-      playedTime: 0
-      isCompleted: 0
-    - taskObj: {fileID: 612703425}
-      taskNo: 4
-      playedTime: 0
-      isCompleted: 0
-  currentTask:
+  taskScreens:
+  - taskState: 0
+    Screen: {fileID: 1148410236}
+  - taskState: 1
+    Screen: {fileID: 1879118506}
+  - taskState: 2
+    Screen: {fileID: 1499157010}
+  - taskState: 3
+    Screen: {fileID: 612703425}
+  currentScreenIndex: 0
+  currentTaskDetails:
     taskObj: {fileID: 0}
-    taskNo: 0
+    taskNo: 2
     playedTime: 0
     isCompleted: 0
-  gameOverPrefab: {fileID: 6044575461836971648, guid: 2ba469fa97f605b4c9dfe0ff20f420d3, type: 3}
-  gameOverCanvas: {fileID: 442256179}
+  currentGroupNumber: 1
+  demoTime: 10
+  gameOverUI: {fileID: 6044575461836971648, guid: 2ba469fa97f605b4c9dfe0ff20f420d3, type: 3}
 --- !u!1 &1862706985
 GameObject:
   m_ObjectHideFlags: 0

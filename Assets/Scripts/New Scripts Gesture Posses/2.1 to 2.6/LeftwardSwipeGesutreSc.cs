@@ -7,7 +7,7 @@ public class LeftwardSwipeGestureSc : MonoBehaviour
 {
     private Controller controller;
     private bool indexFingerExtendedLeftward = false;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -33,7 +33,7 @@ public class LeftwardSwipeGestureSc : MonoBehaviour
             {
                 indexFingerExtendedLeftward = true;
                 Debug.Log("Index finger extended leftward swipe detected");
-                groupController.ShowGameOverPopup();
+                groupController.OnGestureDetected();
             }
         }
 

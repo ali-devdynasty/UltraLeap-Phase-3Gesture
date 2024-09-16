@@ -8,7 +8,7 @@ public class UpwardSwipeGestureSc : MonoBehaviour
 {
     private Controller controller;
     private bool indexFingerExtendedUpward = false;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class UpwardSwipeGestureSc : MonoBehaviour
             {
                 indexFingerExtendedUpward = true;
                 Debug.Log("Index finger extended upward swipe detected");
-                groupController.ShowGameOverPopup();
+                groupController.OnGestureDetected();
             }
         }
 

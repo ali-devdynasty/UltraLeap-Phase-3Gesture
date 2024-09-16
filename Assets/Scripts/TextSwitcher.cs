@@ -32,10 +32,12 @@ public class TextSwitcher : MonoBehaviour
         
         if (isEnglish)
         {
+            if(text!=null)
             text.text = English;
         }
         else
         {
+            if(text!=null)
             text.text = Fa.faConvert(Arabis);
         }
     }

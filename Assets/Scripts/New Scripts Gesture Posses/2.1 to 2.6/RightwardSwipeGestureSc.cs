@@ -5,7 +5,7 @@ using Leap.Unity;
 public class RightwardSwipeGestureSc : MonoBehaviour
 {
     private Controller controller;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -30,7 +30,7 @@ public class RightwardSwipeGestureSc : MonoBehaviour
             if (IsIndexFingerOnlyExtended(hand) && IsMovingRightward(hand) && Time.timeScale != 0)
             {
                 Debug.Log("Index finger extended rightward swipe detected");
-                groupController.ShowGameOverPopup();
+                groupController.OnGestureDetected();
             }
         }
 

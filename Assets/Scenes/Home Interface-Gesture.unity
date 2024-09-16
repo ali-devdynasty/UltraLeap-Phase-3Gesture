@@ -710,6 +710,12 @@ MonoBehaviour:
       - TaskNo: 4
         CompletedTimes: 
         subTasks: []
+      - TaskNo: 5
+        CompletedTimes: 
+        subTasks: []
+      - TaskNo: 6
+        CompletedTimes: 
+        subTasks: []
     - GroupId: 3
       State: 0
       TotalTime: 
@@ -717,29 +723,11 @@ MonoBehaviour:
       - TaskNo: 1
         CompletedTimes: 
         subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
     - GroupId: 4
       State: 0
       TotalTime: 
       tasks:
       - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
         CompletedTimes: 
         subTasks: []
     - GroupId: 5
@@ -768,240 +756,42 @@ MonoBehaviour:
       - TaskNo: 2
         CompletedTimes: 
         subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 7
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 8
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 9
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 10
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 11
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 12
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 13
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 14
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 15
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 16
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 17
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-    - GroupId: 18
-      State: 0
-      TotalTime: 
-      tasks:
-      - TaskNo: 1
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 2
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 3
-        CompletedTimes: 
-        subTasks: []
-      - TaskNo: 4
-        CompletedTimes: 
-        subTasks: []
-  groupPlayedStates:
-  - groupNo: 1
+  TaskPlayedStates:
+  - TaskNo: 1.1
     isPlayed: 0
-  - groupNo: 2
+  - TaskNo: 1.2
     isPlayed: 0
-  - groupNo: 3
+  - TaskNo: 1.3
     isPlayed: 0
-  - groupNo: 4
+  - TaskNo: 1.4
     isPlayed: 0
-  - groupNo: 5
+  - TaskNo: 2.1
     isPlayed: 0
-  - groupNo: 6
+  - TaskNo: 2.2
     isPlayed: 0
-  - groupNo: 7
+  - TaskNo: 2.3
     isPlayed: 0
-  - groupNo: 8
+  - TaskNo: 2.4
     isPlayed: 0
-  - groupNo: 9
+  - TaskNo: 2.5
     isPlayed: 0
-  - groupNo: 10
+  - TaskNo: 2.6
     isPlayed: 0
-  - groupNo: 11
+  - TaskNo: 3.1
     isPlayed: 0
-  - groupNo: 12
+  - TaskNo: 4.1
     isPlayed: 0
-  - groupNo: 13
+  - TaskNo: 5.1
     isPlayed: 0
-  - groupNo: 14
+  - TaskNo: 5.2
     isPlayed: 0
-  - groupNo: 15
+  - TaskNo: 5.3
     isPlayed: 0
-  - groupNo: 16
+  - TaskNo: 5.4
     isPlayed: 0
-  - groupNo: 17
+  - TaskNo: 6.1
     isPlayed: 0
-  - groupNo: 18
+  - TaskNo: 6.2
     isPlayed: 0
   isRecording: 0
 --- !u!114 &1094884597

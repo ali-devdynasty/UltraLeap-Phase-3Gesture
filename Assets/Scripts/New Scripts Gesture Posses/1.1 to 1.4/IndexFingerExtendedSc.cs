@@ -7,7 +7,12 @@ public class IndexFingerExtendedSc : MonoBehaviour
 
     private Controller controller;
     private bool singleFingerPoseDetected = false;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
+
+    private void Awake()
+    {
+        groupController = FindObjectOfType<GroupControllerPhase3>();
+    }
 
     void Start()
     {
@@ -30,7 +35,7 @@ public class IndexFingerExtendedSc : MonoBehaviour
                 {
                     Debug.Log("Single Tap (one-finger) detected");
                     singleFingerPoseDetected = true;
-                    groupController.ShowGameOverPopup();
+                    groupController.OnGestureDetected();
                 }
             }
         }

@@ -7,7 +7,7 @@ public class TwoFinger : MonoBehaviour
 {
     private Controller controller;
     private bool twoFingerPoseDetected = false;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -30,7 +30,7 @@ public class TwoFinger : MonoBehaviour
                 {
                     Debug.Log("Single Tap (two-finger) detected");
                     twoFingerPoseDetected = true;
-                    groupController.ShowGameOverPopup();
+                    groupController.OnGestureDetected();
                 }
             }
         }

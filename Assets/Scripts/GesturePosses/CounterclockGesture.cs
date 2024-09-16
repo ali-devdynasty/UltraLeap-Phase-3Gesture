@@ -9,7 +9,7 @@ public class CounterclockGesture : MonoBehaviour
     const float rotationThreshold = 0.5f; // Adjust threshold as needed
     const float minRotationSpeed = 10f; // Minimum speed for rotation detection
     const Finger.FingerType fingerType = Finger.FingerType.TYPE_INDEX; // Finger type to track
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
     private Vector3 lastDirection;
 
     void Start()
@@ -57,7 +57,7 @@ public class CounterclockGesture : MonoBehaviour
         if (angle > minRotationSpeed && Time.timeScale !=0)
         {
             Debug.Log("Index finger rotating counterclockwise.");
-            groupController.ShowGameOverPopup();
+            groupController.OnGestureDetected();
             // Add your counterclockwise rotation handling code here
         }
 

@@ -34,7 +34,7 @@ public class DataManager : MonoBehaviour
     private List<HandAndFingureMovement> rightHandData;
     private List<HandAndFingureMovement> leftHandData;
 
-    public List<GroupPlayedState> groupPlayedStates;
+    public List<TaskPlayedState> TaskPlayedStates;
 
     SaveManager SaveManager;
     HandTrackingData handTrackingDataRecorder;
@@ -104,7 +104,7 @@ public class DataManager : MonoBehaviour
     }
     public void Reset()
     {
-        foreach (var group in groupPlayedStates)
+        foreach (var group in TaskPlayedStates)
         {
             group.isPlayed = false;
         }
@@ -135,7 +135,7 @@ public class DataManager : MonoBehaviour
         GroupTimerCourtine = GroupTimer.StartTimer();
     }
 
-    internal void OnStartButtonPressedOnTask(int groupNo, TaskList currentTask)
+    internal void OnStartButtonPressedOnTask(int groupNo, TaskDetails currentTask)
     {
         if(leftHandCoroutine != null)
         StopCoroutine(leftHandCoroutine);
@@ -155,7 +155,7 @@ public class DataManager : MonoBehaviour
         Events.OnRecordingStart?.Invoke();
     }
 
-    internal void OnRepeatTaskRecording(int groupNo, TaskList currentTask)
+    internal void OnRepeatTaskRecording(int groupNo, TaskDetails currentTask)
     {
         StopCoroutine(leftHandCoroutine);
         StopCoroutine(rightHandCoroutine);
@@ -179,16 +179,15 @@ public class DataManager : MonoBehaviour
         return leftHandData;
     }
 
-    internal void OnEndTaskRecording(int groupNo, TaskList currentTask)
+    internal void OnEndTaskRecording(int groupNo, TaskDetails currentTask)
     {
         StopCoroutine(leftHandCoroutine);
         StopCoroutine(rightHandCoroutine);
         leftHandCoroutine = null;
         rightHandCoroutine = null;
 
-        var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
-        sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1].LefthandAndFingureMovement = leftHandData;
-        sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1].RighthandAndFingureMovement = rightHandData;
+        sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1].LefthandAndFingureMovement = leftHandData;
+        sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1].RighthandAndFingureMovement = rightHandData;
         isRecording = false;
         Events.OnRecordingEnd?.Invoke();
     }
@@ -196,14 +195,23 @@ public class DataManager : MonoBehaviour
 
 
 
-    internal void OnWithDrawPressedOnTask(int groupNo, TaskList currentTask)
+    internal void OnWithDrawPressedOnTask(int groupNo, TaskDetails currentTask)
     {
-        var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
         sessionData.groupData[groupNo - 1].State = State.withdraw;
-        groupPlayedStates[groupNo - 1].isPlayed = true;
-        if (sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1] != null)
+        //Get the task with taskno
+        var taskno = float.Parse($"{groupNo}.{currentTask.taskNo}");
+        //Find the task from the taskplayed list and set it to played
+        foreach (var task in TaskPlayedStates)
         {
-            var subtask = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1];
+            if (task.TaskNo == taskno)
+            {
+                task.isPlayed = true;
+                break;
+            }
+        }
+        if (sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks[currentTask.playedTime - 1] != null)
+        {
+            var subtask = sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks[currentTask.playedTime - 1];
             subtask.state = State.Skip;
 
             var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
@@ -218,22 +226,22 @@ public class DataManager : MonoBehaviour
             }
         }
 
-        //SetGroupPlayed(groupNo);
+        SetTaskPlayed(groupNo,currentTask);
     }
 
-    private void SetGroupPlayed(int groupNo)
+    private void SetTaskPlayed(int groupNo , TaskDetails currenttask)
     {
-        foreach (var grp in groupPlayedStates)
+        var taskno = float.Parse($"{groupNo}.{currenttask.taskNo}");
+        foreach (var task in TaskPlayedStates)
         {
-            if (grp.groupNo == groupNo)
+            if(task.TaskNo == taskno)
             {
-                grp.isPlayed = true;
-                return;
+                task.isPlayed = true;
             }
         }
     }
 
-    internal void OnBackTaskClicked(int groupNo, TaskList currentTask)
+    internal void OnBackTaskClicked(int groupNo, TaskDetails currentTask)
     {
         var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
         sessionData.groupData[groupNo - 1].State = State.NotPlayed;
@@ -255,10 +263,9 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    internal void OnSkipTask(int groupNo, TaskList currentTask)
+    internal void OnSkipTask(int groupNo, TaskDetails currentTask)
     {
-        var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
-        var subtask = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1];
+        var subtask = sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1];
         subtask.state = State.Skip;
 
         var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
@@ -271,9 +278,10 @@ public class DataManager : MonoBehaviour
         {
             currentTask.isCompleted = true;
         }
+        SetTaskPlayed(groupNo, currentTask);
     }
 
-    internal void OnNewTaskStarted(int groupNo, TaskList currentTask)
+    internal void OnNewTaskStarted(int groupNo, TaskDetails currentTask)
     {
         if (groupNo <= 0 || groupNo > sessionData.groupData.Count)
         {
@@ -281,32 +289,18 @@ public class DataManager : MonoBehaviour
             return;
         }
 
-        GroupController groupController = FindAnyObjectByType<GroupController>();
-        if (groupController == null)
-        {
-            Debug.LogError("GroupController not found!");
-            return;
-        }
-
-        var taskno = groupController.group.tasks.IndexOf(currentTask);
-        if (taskno == -1)
-        {
-            Debug.LogError("CurrentTask not found in group tasks!");
-            return;
-        }
-
         // Initialize subTasks list if it's null
-        if (sessionData.groupData[groupNo - 1].tasks[taskno].subTasks == null)
+        if (sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks == null)
         {
-            sessionData.groupData[groupNo - 1].tasks[taskno].subTasks = new List<SubTasks>();
+            sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks = new List<SubTasks>();
         }
 
         // Create and add a new subTask
         SubTasks subTask = new SubTasks();
         subTask.state = State.NotPlayed;
-        subTask.SubTaskNo = (sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Count + 1).ToString();
+        subTask.SubTaskNo = (sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks.Count + 1).ToString();
 
-        sessionData.groupData[groupNo - 1].tasks[taskno].subTasks.Add(subTask);
+        sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks.Add(subTask);
     }
 
 
@@ -320,35 +314,28 @@ public class DataManager : MonoBehaviour
         return formattedDateTime;
     }
 
-    internal void OnLastTaskCompleted(int groupNo, TaskList currentTask)
+    internal void OnLastTaskCompleted(int groupNo, TaskDetails currentTask)
     {
-        var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currentTask);
-        try
-        {
-
-        var task = sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currentTask.playedTime - 1];
-        }
-        catch(ArgumentOutOfRangeException ex)
-        {
-            Debug.Log(" there is exception please give me code");
-        }
-
+        var task = sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1];
+       
+        SetTaskPlayed(groupNo,currentTask);
+       
         if (currentTask.playedTime == 2)
         {
             currentTask.isCompleted = true;
         }
 
-        //task.state = State.Completed;
+        task.state = State.Completed;
 
-        //var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
+        var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
 
-        //task.totalTime = totaltime.ToString();
+        task.totalTime = totaltime.ToString();
 
-        //task.timeWhenTask_COmpleted = GetCurrentTime();
+        task.timeWhenTask_COmpleted = GetCurrentTime();
 
 
     }
-    IEnumerator startHandRecording(Chirality hand, int groupNo , TaskList currenttask)
+    IEnumerator startHandRecording(Chirality hand, int groupNo , TaskDetails currenttask)
     {
         bool firstDetected = false;
         while (true)
@@ -359,8 +346,7 @@ public class DataManager : MonoBehaviour
                 if(firstDetected == false)
                 {
                     firstDetected = true;
-                    var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currenttask);
-                    sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currenttask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); // index
+                    sessionData.groupData[groupNo - 1].tasks[currenttask.taskNo - 1].subTasks[currenttask.playedTime-1].handDetectedForFirstTime = GetCurrentTime(); // index
                 }
                 leftHandData.Add(data);
             }
@@ -369,8 +355,7 @@ public class DataManager : MonoBehaviour
                 if (firstDetected == false)
                 {
                     firstDetected = true;
-                    var taskno = FindAnyObjectByType<GroupController>().group.tasks.IndexOf(currenttask);
-                    sessionData.groupData[groupNo - 1].tasks[taskno].subTasks[currenttask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); //idex   
+                    sessionData.groupData[groupNo - 1].tasks[currenttask.taskNo - 1].subTasks[currenttask.playedTime-1].handDetectedForFirstTime = GetCurrentTime(); //idex   
                 }
                 rightHandData.Add(data);
             }
@@ -400,7 +385,7 @@ public class DataManager : MonoBehaviour
 
     internal void OnGroupCompleted(Group group)
     {
-        groupPlayedStates[group.groupNo - 1].isPlayed = true;
+        TaskPlayedStates[group.groupNo - 1].isPlayed = true;
         sessionData.groupData[group.groupNo - 1].State = State.Completed;
         SceneManager.LoadScene(2);
     }
@@ -445,9 +430,9 @@ public enum State
     NotPlayed, withdraw, cancel, Skip, Completed
 }
 [Serializable]
-public class GroupPlayedState
+public class TaskPlayedState
 {
-    public int groupNo;
+    public float TaskNo;
     public bool isPlayed;
 }
 [Serializable]

@@ -8,7 +8,7 @@ public class ZoomOutGes : MonoBehaviour
     public float pinchThreshold = 30f; // Threshold for considering a separation gesture
     private bool isRightHandInitialSeparation = false;
     private bool isLeftHandInitialSeparation = false;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -54,7 +54,7 @@ public class ZoomOutGes : MonoBehaviour
             // Fingers close together after initial separation
             isInitialSeparation = false;
             Debug.Log("Zooming Out");
-            groupController.ShowGameOverPopup();
+            groupController.OnGestureDetected();
 
         }
     }

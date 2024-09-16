@@ -1337,42 +1337,42 @@ MonoBehaviour:
   participantId: {fileID: 758332052}
   sessionId: {fileID: 888088853}
   buttons:
-  - groupBtn: {fileID: 238929692}
-    groupNo: 1
-  - groupBtn: {fileID: 1660975293}
-    groupNo: 2
-  - groupBtn: {fileID: 1437094013}
-    groupNo: 3
-  - groupBtn: {fileID: 331559023}
-    groupNo: 4
-  - groupBtn: {fileID: 1045705396}
-    groupNo: 5
-  - groupBtn: {fileID: 249551504}
-    groupNo: 6
-  - groupBtn: {fileID: 762093573}
-    groupNo: 7
-  - groupBtn: {fileID: 2031884104}
-    groupNo: 8
-  - groupBtn: {fileID: 672135325}
-    groupNo: 9
-  - groupBtn: {fileID: 1629858441}
-    groupNo: 10
-  - groupBtn: {fileID: 1698969989}
-    groupNo: 11
-  - groupBtn: {fileID: 1568726162}
-    groupNo: 12
-  - groupBtn: {fileID: 1771211490}
-    groupNo: 13
-  - groupBtn: {fileID: 1674838316}
-    groupNo: 14
-  - groupBtn: {fileID: 1933403961}
-    groupNo: 15
-  - groupBtn: {fileID: 1092765902}
-    groupNo: 16
-  - groupBtn: {fileID: 600295194}
-    groupNo: 17
-  - groupBtn: {fileID: 1225602418}
-    groupNo: 18
+  - taskBtn: {fileID: 238929692}
+    TaskNo: 1.1
+  - taskBtn: {fileID: 1660975293}
+    TaskNo: 1.2
+  - taskBtn: {fileID: 1437094013}
+    TaskNo: 1.3
+  - taskBtn: {fileID: 331559023}
+    TaskNo: 1.4
+  - taskBtn: {fileID: 1045705396}
+    TaskNo: 2.1
+  - taskBtn: {fileID: 249551504}
+    TaskNo: 2.2
+  - taskBtn: {fileID: 762093573}
+    TaskNo: 2.3
+  - taskBtn: {fileID: 2031884104}
+    TaskNo: 2.4
+  - taskBtn: {fileID: 672135325}
+    TaskNo: 2.5
+  - taskBtn: {fileID: 1629858441}
+    TaskNo: 2.6
+  - taskBtn: {fileID: 1698969989}
+    TaskNo: 3.1
+  - taskBtn: {fileID: 1568726162}
+    TaskNo: 4.1
+  - taskBtn: {fileID: 1771211490}
+    TaskNo: 5.1
+  - taskBtn: {fileID: 1674838316}
+    TaskNo: 5.2
+  - taskBtn: {fileID: 1933403961}
+    TaskNo: 5.3
+  - taskBtn: {fileID: 1092765902}
+    TaskNo: 5.4
+  - taskBtn: {fileID: 600295194}
+    TaskNo: 6.1
+  - taskBtn: {fileID: 1225602418}
+    TaskNo: 6.2
 --- !u!1 &600295192
 GameObject:
   m_ObjectHideFlags: 0

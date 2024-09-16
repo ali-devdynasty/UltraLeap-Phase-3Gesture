@@ -23,17 +23,17 @@ public class interface3 : MonoBehaviour
     }
     private void OnEnable()
     {
-        foreach(var grp in DataManager.instance.groupPlayedStates)
+        foreach(var Task in DataManager.instance.TaskPlayedStates)
         {
-            if(grp != null)
+            if(Task != null)
             {
-                if(grp.isPlayed)
+                if(Task.isPlayed)
                 {
                     foreach(var btn in buttons)
                     {
-                        if(grp.groupNo == btn.groupNo)
+                        if(Task.TaskNo == btn.TaskNo)
                         {
-                            btn.groupBtn.interactable = false;
+                            btn.taskBtn.interactable = false;
                         }
                     }
                 }
@@ -43,11 +43,11 @@ public class interface3 : MonoBehaviour
         //check if all group played
 
         bool iscomplete = true;
-        foreach (var grp in DataManager.instance.groupPlayedStates)
+        foreach (var task in DataManager.instance.TaskPlayedStates)
         {
-            if (grp != null)
+            if (task != null)
             {
-                if (!grp.isPlayed)
+                if (!task.isPlayed)
                 {
                     iscomplete = false;
                     break;
@@ -88,6 +88,6 @@ public class interface3 : MonoBehaviour
 [Serializable]
 public class ButtonsToGroup
 {
-    public Button groupBtn;
-    public int groupNo;
+    public Button taskBtn;
+    public float TaskNo;
 }

@@ -11,7 +11,7 @@ public class PinchZoomGesture : MonoBehaviour
 
     private bool isInitialPinch = false;
     private float initialPinchDistance = 0f;
-    public GroupController groupController;
+    public GroupControllerPhase3 groupController;
 
     void Start()
     {
@@ -56,13 +56,13 @@ public class PinchZoomGesture : MonoBehaviour
                 transform.localScale = Vector3.one * Mathf.Clamp(newScale, 0.5f, 2f); // Limit zoom range
 
                 Debug.Log($"Zooming In)");
-                groupController.ShowGameOverPopup();
+                groupController.OnGestureDetected();
 
             }
         }
         if (groupController == null)
         {
-            groupController = FindObjectOfType<GroupController>();
+            groupController = FindObjectOfType<GroupControllerPhase3>();
         }
     }
 }

@@ -12,7 +12,7 @@ public class GroupController : MonoBehaviour
     GameUi gameUi;
     DataManager dataManager;
 
-    public TaskList currentTask;
+    public TaskDetails currentTask;
     private int taskIndex = 0;
 
     public GameObject gameOverPrefab;
@@ -26,9 +26,9 @@ public class GroupController : MonoBehaviour
         Debug.Log("GroupController Start");
         dataManager = FindObjectOfType<DataManager>();
         gameUi = FindObjectOfType<GameUi>();
-        //dataManager.OnGroupStarted(group.groupNo);
+        //dataManager.OnGroupStarted(group.TaskNo);
         ////StartNextTask();
-        //dataManager.OnNewTaskStarted(group.groupNo, currentTask);
+        //dataManager.OnNewTaskStarted(group.TaskNo, currentTask);
     }
 
     
@@ -83,7 +83,7 @@ public class GroupController : MonoBehaviour
             // Find the next uncompleted task in order
             for (int i = 0; i < group.tasks.Count; i++)
             {
-                TaskList task = group.tasks[taskIndex];
+                TaskDetails task = group.tasks[taskIndex];
                 taskIndex = (taskIndex + 1) % group.tasks.Count;
                 Debug.Log($"Task index updated to: {taskIndex}");
                 //gameUi.UpdateButtons(2);
@@ -95,7 +95,7 @@ public class GroupController : MonoBehaviour
                     currentTask.playedTime++;
 
                     task.taskObj.SetActive(true);
-                    //gameUi.taskNo.text = $"/*{group.groupNo}.{task.taskNo}*/";
+                    //gameUi.taskNo.text = $"/*{group.TaskNo}.{task.taskNo}*/";
                     gameUi.taskNo.text = $"{group.taskNumberGet}";
 
                     Debug.Log("Current task is No " + task.taskNo); 
@@ -311,7 +311,7 @@ public class GroupController : MonoBehaviour
 
     private void OnStart()
     {
-        //dataManager.OnStartButtonPressedOnTask(group.groupNo, currentTask);
+        //dataManager.OnStartButtonPressedOnTask(group.TaskNo, currentTask);
         dataManager.OnGroupStarted(group.groupNo);
         StartNextTask();
         dataManager.OnNewTaskStarted(group.groupNo, currentTask);
@@ -334,11 +334,11 @@ public class Group
 {
     public int groupNo;
     public string taskNumberGet;
-    public List<TaskList> tasks;
+    public List<TaskDetails> tasks;
 }
 
 [Serializable]
-public class TaskList
+public class TaskDetails
 {
 
     public GameObject taskObj;

@@ -861,36 +861,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 514659723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aed7f9bb328fa04ca7ab2cd42ea5e60, type: 3}
+  m_Script: {fileID: 11500000, guid: 92ba47f3e0a583a47a2ea8b451bf49e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  group:
-    groupNo: 7
-    taskNumberGet: 2.3
-    tasks:
-    - taskObj: {fileID: 438216951}
-      taskNo: 1
-      playedTime: 0
-      isCompleted: 0
-    - taskObj: {fileID: 1904333216}
-      taskNo: 2
-      playedTime: 0
-      isCompleted: 0
-    - taskObj: {fileID: 35734373}
-      taskNo: 3
-      playedTime: 0
-      isCompleted: 0
-    - taskObj: {fileID: 704946585}
-      taskNo: 4
-      playedTime: 0
-      isCompleted: 0
-  currentTask:
+  taskScreens:
+  - taskState: 0
+    Screen: {fileID: 438216951}
+  - taskState: 1
+    Screen: {fileID: 1904333216}
+  - taskState: 2
+    Screen: {fileID: 35734373}
+  - taskState: 3
+    Screen: {fileID: 704946585}
+  currentScreenIndex: 0
+  currentTaskDetails:
     taskObj: {fileID: 0}
-    taskNo: 0
+    taskNo: 3
     playedTime: 0
     isCompleted: 0
-  gameOverPrefab: {fileID: 6044575461836971648, guid: 2ba469fa97f605b4c9dfe0ff20f420d3, type: 3}
-  gameOverCanvas: {fileID: 1147846975}
+  currentGroupNumber: 2
+  demoTime: 10
+  gameOverUI: {fileID: 6044575461836971648, guid: 2ba469fa97f605b4c9dfe0ff20f420d3, type: 3}
 --- !u!1 &704946585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,6 +2016,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameControllUi
       objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 304967124556227004, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1518977587268423338, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2105,8 +2112,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2438794661729534101, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2650315358980014562, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804616434098820068, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6596303047168495198, guid: ec07f74b6fc925a4eab57ab0bf78a05a, type: 3}
