@@ -9,7 +9,7 @@ public class PinchLeftDragGesture : MonoBehaviour
     private bool _isPinching = false;
     private const float PinchStrengthThreshold = 0.8f;
     private const float DragThreshold = 0.05f;
-    private const float PalmVelocityThreshold = -0.25f; // Threshold for leftward palm velocity (negative value)
+    private const float PalmVelocityThreshold = -0.30f; // Threshold for leftward palm velocity (negative value)
     public GroupControllerPhase3 groupController;
 
     void Update()
@@ -32,6 +32,9 @@ public class PinchLeftDragGesture : MonoBehaviour
                         // Start pinching
                         _isPinching = true;
                         _previousPinchPosition = currentPinchPosition;
+
+                        // Log that the pinch has started
+                        Debug.Log("Hand is pinching.");
                     }
                     else
                     {
@@ -48,7 +51,11 @@ public class PinchLeftDragGesture : MonoBehaviour
                 }
                 else
                 {
-                    // Reset pinch state
+                    // Reset pinch state when not pinching
+                    if (_isPinching)
+                    {
+                        Debug.Log("Hand has stopped pinching.");
+                    }
                     _isPinching = false;
                 }
             }

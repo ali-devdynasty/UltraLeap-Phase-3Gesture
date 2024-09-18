@@ -464,8 +464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   English: '[Directional Left Swipe]'
-  Arabis: "[\u0627\u0644\u062A\u0645\u0631\u064A\u0631 \u0627\u0644\u0627\u062A\u062C\u0627\u0647\u064A
-    \u0644\u0644\u064A\u0633\u0627\u0631]"
+  Arabis: "]\u0627\u0644\u062A\u0645\u0631\u064A\u0631 \u0627\u0644\u0627\u062A\u062C\u0627\u0647\u064A
+    \u0644\u0644\u064A\u0633\u0627\u0631["
 --- !u!1 &431618984
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +881,8 @@ MonoBehaviour:
     isCompleted: 0
   currentGroupNumber: 2
   demoTime: 10
+  isGameOver: 0
+  isDetecting: 0
   gameOverUI: {fileID: 6044575461836971648, guid: 2ba469fa97f605b4c9dfe0ff20f420d3, type: 3}
 --- !u!1 &704946585
 GameObject:
@@ -919,7 +921,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -103, y: 0}
+  m_AnchoredPosition: {x: -103, y: -31}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &704946587
@@ -1737,7 +1739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.0753784, y: -45.787918}
+  m_AnchoredPosition: {x: 7.0753784, y: -11}
   m_SizeDelta: {x: 600, y: 705.744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1702836643

@@ -1966,7 +1966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.0599976, y: -46.86}
+  m_AnchoredPosition: {x: 7.0599976, y: 1}
   m_SizeDelta: {x: 600, y: 705.744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1127378477
@@ -2020,7 +2020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   English: '[Hard Press] '
-  Arabis: "[\u0627\u0644\u0635\u062D\u0627\u0641\u0629 \u0627\u0644\u0635\u0639\u0628\u0629]"
+  Arabis: "]\u0627\u0644\u0635\u062D\u0627\u0641\u0629 \u0627\u0644\u0635\u0639\u0628\u0629["
 --- !u!114 &1127378480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3233,6 +3233,8 @@ MonoBehaviour:
     isCompleted: 0
   currentGroupNumber: 1
   demoTime: 10
+  isGameOver: 0
+  isDetecting: 0
   gameOverUI: {fileID: 6044575461836971648, guid: 2ba469fa97f605b4c9dfe0ff20f420d3, type: 3}
 --- !u!1 &1760229368
 GameObject:

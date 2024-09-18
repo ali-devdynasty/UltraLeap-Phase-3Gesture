@@ -9,7 +9,7 @@ public class PinchZoomGesture : MonoBehaviour
     public float movementThreshold = 10f; // Threshold for hand movement to ignore gestures
     public float zoomSpeed = 0.01f; // Adjust this value for desired zoom speed
 
-    private bool isInitialPinch = false;
+    private bool isPinchStart = false;
     private float initialPinchDistance = 0f;
     public GroupControllerPhase3 groupController;
 
@@ -26,40 +26,39 @@ public class PinchZoomGesture : MonoBehaviour
         Frame frame = leapProvider.CurrentFrame;
         foreach (Hand hand in frame.Hands)
         {
-            // Check if hand is moving significantly
+            // Ignore significant hand movement
             if (hand.PalmVelocity.magnitude > movementThreshold)
             {
-                // Hand movement is significant, reset initial pinch state
-                isInitialPinch = false;
+                isPinchStart = false;
                 continue;
             }
 
             float pinchDistance = hand.PinchDistance;
 
-            if (!isInitialPinch && pinchDistance < pinchThreshold)
+            // Detect when the thumb and index finger are pinched (closed)
+            if (!isPinchStart && pinchDistance < pinchThreshold)
             {
-                // Initial pinch detected
-                isInitialPinch = true;
+                isPinchStart = true;
                 initialPinchDistance = pinchDistance;
-                Debug.Log("Initial Pinch Detected");
+                Debug.Log("Initial Pinch Detected: Thumb and index finger closed");
             }
-            else if (isInitialPinch && pinchDistance >= pinchThreshold && Time.timeScale!= 0)
+            // Detect when the thumb and index finger are spread out after a pinch
+            else if (isPinchStart && pinchDistance >= pinchThreshold)
             {
-                // Fingers spread out after initial pinch
-                isInitialPinch = false;
+                isPinchStart = false;
 
-                // Calculate zoom factor based on pinch distance change
+                // Calculate zoom based on the pinch distance change
                 float zoomFactor = initialPinchDistance / pinchDistance;
                 float newScale = transform.localScale.x * zoomFactor;
 
-                // Apply zoom (e.g., scale the object)
-                transform.localScale = Vector3.one * Mathf.Clamp(newScale, 0.5f, 2f); // Limit zoom range
+                // Apply zoom with clamping
+                transform.localScale = Vector3.one * Mathf.Clamp(newScale, 0.5f, 2f);
 
-                Debug.Log($"Zooming In)");
+                Debug.Log("Zooming In: Fingers spread out");
                 groupController.OnGestureDetected();
-
             }
         }
+
         if (groupController == null)
         {
             groupController = FindObjectOfType<GroupControllerPhase3>();

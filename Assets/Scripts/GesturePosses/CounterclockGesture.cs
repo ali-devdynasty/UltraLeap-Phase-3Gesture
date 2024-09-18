@@ -2,6 +2,7 @@ using UnityEngine;
 using Leap;
 using Leap.Unity;
 using System.Collections.Generic;
+using System.Collections; // Needed for coroutines
 
 public class CounterclockGesture : MonoBehaviour
 {
@@ -11,11 +12,14 @@ public class CounterclockGesture : MonoBehaviour
     const Finger.FingerType fingerType = Finger.FingerType.TYPE_INDEX; // Finger type to track
     public GroupControllerPhase3 groupController;
     private Vector3 lastDirection;
+    private bool isFingerExtended;
+    private Hand currentHand;
 
     void Start()
     {
         leapController = new Controller();
         lastDirection = Vector3.zero;
+        isFingerExtended = false;
     }
 
     void Update()
@@ -27,7 +31,18 @@ public class CounterclockGesture : MonoBehaviour
         {
             if (IsIndexExtended(hand))
             {
-                DetectCounterclockwiseRotation(hand);
+                Debug.Log("Index finger is extended.");
+                if (!isFingerExtended)
+                {
+                    isFingerExtended = true;
+                    StartCoroutine(WaitAndDetectRotation(0.001f));
+                    currentHand = hand;
+                }
+            }
+            else
+            {
+                // Reset the state if the finger is not extended
+                isFingerExtended = false;
             }
         }
     }
@@ -39,6 +54,16 @@ public class CounterclockGesture : MonoBehaviour
                !hand.Fingers[(int)Finger.FingerType.TYPE_MIDDLE].IsExtended &&
                !hand.Fingers[(int)Finger.FingerType.TYPE_RING].IsExtended &&
                !hand.Fingers[(int)Finger.FingerType.TYPE_PINKY].IsExtended;
+    }
+
+    IEnumerator WaitAndDetectRotation(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        if (isFingerExtended && currentHand != null)
+        {
+            DetectCounterclockwiseRotation(currentHand);
+        }
     }
 
     void DetectCounterclockwiseRotation(Hand hand)
@@ -54,11 +79,16 @@ public class CounterclockGesture : MonoBehaviour
 
         float angle = Vector3.SignedAngle(lastDirection, currentDirection, Vector3.up);
 
-        if (angle > minRotationSpeed && Time.timeScale !=0)
+        if (angle > rotationThreshold && Time.timeScale != 0)
         {
             Debug.Log("Index finger rotating counterclockwise.");
             groupController.OnGestureDetected();
             // Add your counterclockwise rotation handling code here
+        }
+        else if (angle < -rotationThreshold && Time.timeScale != 0)
+        {
+            Debug.Log("Index finger rotating clockwise.");
+            // Optionally handle clockwise rotation here
         }
 
         lastDirection = currentDirection;

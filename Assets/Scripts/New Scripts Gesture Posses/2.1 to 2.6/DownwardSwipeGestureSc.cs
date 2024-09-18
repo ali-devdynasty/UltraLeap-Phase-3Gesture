@@ -4,7 +4,8 @@ using UnityEngine;
 public class DownwardSwipeDetection : MonoBehaviour
 {
     private Controller controller;
-    private bool indexFingerExtendedDownward = false;
+    private bool indexFingerExtended = false;
+    private bool swipeDetected = false;
     public GroupControllerPhase3 groupController;
 
     void Start()
@@ -15,31 +16,39 @@ public class DownwardSwipeDetection : MonoBehaviour
     void Update()
     {
         Frame frame = controller.Frame();
-        bool currentSingleFingerPoseDetected = false;
 
         foreach (Hand hand in frame.Hands)
         {
-            // Check if only the index finger is extended and moving downward
-            if (IsIndexFingerOnlyExtended(hand) && IsMovingDownward(hand) && Time.timeScale != 0) // Adjust the threshold as needed
+            // Step 1: Detect when the index finger is extended
+            if (!indexFingerExtended && IsIndexFingerOnlyExtended(hand))
             {
-                indexFingerExtendedDownward = true;
+                indexFingerExtended = true;
+                Debug.Log("Index finger is extended");
+            }
+
+            // Step 2: Detect when the hand is moving downward while the index finger is extended
+            if (indexFingerExtended && !swipeDetected && IsMovingDownward(hand) && Time.timeScale != 0)
+            {
+                swipeDetected = true;
                 Debug.Log("Downward swipe detected");
                 groupController.OnGestureDetected();
+
+                // Reset after the swipe to track future gestures
+                ResetGestureTracking();
             }
 
-            if (IsSingleTapPose(hand))
+            // If the index finger is no longer extended, reset to allow for future detection
+            if (!IsIndexFingerOnlyExtended(hand))
             {
-                currentSingleFingerPoseDetected = true;
-                // Existing code for single tap pose detection
-                // ...
+                ResetGestureTracking();
             }
         }
+    }
 
-        if (!currentSingleFingerPoseDetected)
-        {
-            // Existing code for handling other cases
-            // ...
-        }
+    void ResetGestureTracking()
+    {
+        indexFingerExtended = false;
+        swipeDetected = false;
     }
 
     bool IsIndexFingerOnlyExtended(Hand hand)
@@ -64,14 +73,6 @@ public class DownwardSwipeDetection : MonoBehaviour
     bool IsMovingDownward(Hand hand)
     {
         // Check if the hand is moving downward
-        return -hand.PalmVelocity.y > 0.25f; // Adjust the threshold as needed
-    }
-
-    bool IsSingleTapPose(Hand hand)
-    {
-        // Existing code for single tap pose detection
-        // ...
-
-        return Vector3.Angle(hand.Fingers[(int)Finger.FingerType.TYPE_INDEX].Direction, hand.Direction) < 20.0f;
+        return hand.PalmVelocity.y < -0.25f; // Adjust the threshold as needed
     }
 }

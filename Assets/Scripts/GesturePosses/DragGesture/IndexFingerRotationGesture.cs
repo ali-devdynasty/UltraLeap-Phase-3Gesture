@@ -25,6 +25,10 @@ public class IndexFingerRotationGesture : MonoBehaviour
         {
             if (IsIndexExtended(hand))
             {
+                // Log that the index finger is extended
+                Debug.Log("Index finger is extended.");
+
+                // Now check for clockwise rotation
                 DetectClockwiseRotation(hand);
             }
         }
@@ -56,10 +60,9 @@ public class IndexFingerRotationGesture : MonoBehaviour
         // Check if angle indicates clockwise rotation
         if (angle < referenceAngle && angle > referenceAngle - rotationThreshold && Time.timeScale != 0)
         {
-            Debug.Log("Index finger rotating ClockWise.");
+            Debug.Log("Index finger is extended and rotating clockwise.");
             groupController.OnGestureDetected();
             // Add your clockwise rotation handling code here
         }
     }
-
 }
