@@ -72,7 +72,7 @@ public class DataManager : MonoBehaviour
         Reset();
     }
 
-    private void SaveData()
+    public void SaveData()
     {
         SaveManager.SaveSessionData(sessionData);
     }
@@ -100,7 +100,7 @@ public class DataManager : MonoBehaviour
         StopGroupTimer();
         sessionData.sessionState = State.Completed;
         SaveData();
-        Reset();
+        //Reset();
     }
     public void Reset()
     {
@@ -137,6 +137,7 @@ public class DataManager : MonoBehaviour
 
     internal void OnStartButtonPressedOnTask(int groupNo, TaskDetails currentTask)
     {
+        Debug.Log("onStartbtn press finger movement trying to save");
         if(leftHandCoroutine != null)
         StopCoroutine(leftHandCoroutine);
         if(rightHandCoroutine != null)
@@ -301,7 +302,8 @@ public class DataManager : MonoBehaviour
         subTask.SubTaskNo = (sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks.Count + 1).ToString();
 
         sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks.Add(subTask);
-    }
+        SaveData();
+    } 
 
 
     private string GetCurrentTime()

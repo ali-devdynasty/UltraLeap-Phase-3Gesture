@@ -12,6 +12,7 @@ public class interface3 : MonoBehaviour
     public Text participantId, sessionId;
 
     public List<ButtonsToGroup> buttons;
+    DataManager dataManager;
     private void Awake()
     {
         back.onClick.AddListener(OnBackButtonClicked);
@@ -21,6 +22,7 @@ public class interface3 : MonoBehaviour
         participantId.text = DataManager.instance.sessionData.ParticipantId;
         sessionId.text = DataManager.instance.sessionData.SessionId;
     }
+   
     private void OnEnable()
     {
         foreach(var Task in DataManager.instance.TaskPlayedStates)
@@ -34,6 +36,8 @@ public class interface3 : MonoBehaviour
                         if(Task.TaskNo == btn.TaskNo)
                         {
                             btn.taskBtn.interactable = false;
+                           
+
                         }
                     }
                 }
@@ -65,6 +69,8 @@ public class interface3 : MonoBehaviour
         int sceneNo = groupNo + 2;
 
         SceneManager.LoadScene(sceneNo);
+      
+
     }
 
     private void OnCanelClicked()

@@ -10,8 +10,8 @@ using UnityEngine.Video;
 
 public class GameUi : MonoBehaviour
 {
-    public Button back, withdraw, skip, next, start , repeat, end;
-    public Action onBackCLicked, onWithDrawCLicked, onSkipClicked, onNextClicked ,onStartClicked,onRepeatClicked,onEndClicked;
+    public Button back, withdraw, skip, next, start, repeat, end, match, unmatch;
+    public Action onBackCLicked, onWithDrawCLicked, onSkipClicked, onNextClicked ,onStartClicked,onRepeatClicked,onEndClicked,onMatchClicked,onUnmatchClicked;
     public GameObject rec;
     public Text taskNo;
     public VideoController videoController;
@@ -26,6 +26,8 @@ public class GameUi : MonoBehaviour
         start.onClick.AddListener(OnStartClicked);
         repeat.onClick.AddListener(OnRepeatClicked);
         end.onClick.AddListener(OnEndClicked);
+        match.onClick.AddListener(OnMatchClicked);
+        unmatch.onClick.AddListener(OnUmMatchClicked);
         //repeat.interactable = false;
         if (videoController == null) { videoController = FindAnyObjectByType<VideoController>(); }
 
@@ -77,6 +79,8 @@ public class GameUi : MonoBehaviour
         start.interactable = false;
         rec.SetActive(true);
         repeat.interactable = true;
+        match.interactable = true;
+        unmatch.interactable = true;
     }
 
     private void OnEndClicked()
@@ -126,6 +130,15 @@ public class GameUi : MonoBehaviour
         Debug.Log("OnBackCLicked called");
         onBackCLicked?.Invoke();
     }
-   
+   private void OnMatchClicked()
+    {
+        Debug.Log("OnMatchClicked called");
+        onMatchClicked?.Invoke();
+    }
+    private void OnUmMatchClicked()
+    {
+        Debug.Log("OnUnMatchClicked called");
+        onUnmatchClicked?.Invoke();
+    }
 
 }

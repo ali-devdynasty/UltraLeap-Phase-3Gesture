@@ -17,6 +17,9 @@ public class GroupControllerPhase3 : MonoBehaviour
     public TaskDetails currentTaskDetails;
     public int currentGroupNumber;
     public int demoTime = 10;
+    private bool gestureMatch = false;
+    private bool gestureConfirmed = false;   
+
 
     GameUi gameUi;
     DataManager dataManager;
@@ -26,7 +29,8 @@ public class GroupControllerPhase3 : MonoBehaviour
     [Space(10)]
     [Header("Ui")]
     public GameObject gameOverUI;
-    
+
+
 
     #region EventsBinding
 
@@ -38,12 +42,17 @@ public class GroupControllerPhase3 : MonoBehaviour
         gameUi.onRepeatClicked += OnRepeatClicked;
         gameUi.onSkipClicked += OnSkipClicked;
         gameUi.onWithDrawCLicked += OnWithDrawClicked;
+        gameUi.onMatchClicked += OnMatchClicked;
+        gameUi.onUnmatchClicked += OnUnMatchClicked;
         dataManager.OnNewTaskStarted(currentGroupNumber, currentTaskDetails);
         currentTaskDetails.playedTime++;
+       
 
         //Set the Task Number on the UI
         gameUi.taskNo.text = currentGroupNumber.ToString() + "."+currentTaskDetails.taskNo;
     }
+
+   
 
     private void OnDisable()
     {
@@ -51,6 +60,10 @@ public class GroupControllerPhase3 : MonoBehaviour
         gameUi.onRepeatClicked -= OnRepeatClicked;
         gameUi.onSkipClicked -= OnSkipClicked;
         gameUi.onWithDrawCLicked -= OnWithDrawClicked;
+        gameUi.onMatchClicked -= OnMatchClicked;
+        gameUi.onUnmatchClicked -= OnUnMatchClicked;
+
+
     }
     private void OnDestroy()
     {
@@ -58,6 +71,10 @@ public class GroupControllerPhase3 : MonoBehaviour
         gameUi.onRepeatClicked -= OnRepeatClicked;
         gameUi.onSkipClicked -= OnSkipClicked;
         gameUi.onWithDrawCLicked -= OnWithDrawClicked;
+        gameUi.onMatchClicked -= OnMatchClicked;
+        gameUi.onUnmatchClicked -= OnUnMatchClicked;
+
+
 
     }
 
@@ -106,12 +123,11 @@ public class GroupControllerPhase3 : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    private async void OnStartClicked()
+    public async void OnStartClicked()
     {
         ActivateScreen(taskState.demo);
         
         dataManager.OnStartButtonPressedOnTask(currentGroupNumber, currentTaskDetails);
-
         await SystemTask.Delay(demoTime * 1000); // Introduce a 10-second delay
         ActivateScreen(taskState.GestureDetecting);
         isDetecting = true;
@@ -128,23 +144,49 @@ public class GroupControllerPhase3 : MonoBehaviour
         if (isGameOver || !isDetecting) return;
         isGameOver = true;
         ActivateScreen(taskState.GestureDetected);
-        if(dataManager.isRecording)
+        gestureConfirmed = false;
+        while(!gestureConfirmed)
         {
-            dataManager.OnEndTaskRecording(currentGroupNumber, currentTaskDetails);
+            await SystemTask.Delay(100);
         }
-        dataManager.OnLastTaskCompleted(currentGroupNumber, currentTaskDetails);
-        await SystemTask.Delay(1000); // Introduce a 1-second delay
-        ActivateScreen(taskState.FinalResult);
 
-        //Instantiate game over UI on the Canvas
-        Instantiate(gameOverUI, gameUi.transform);
+        if (gestureMatch)
+        {
+            if (dataManager.isRecording)
+            {
+                dataManager.OnEndTaskRecording(currentGroupNumber, currentTaskDetails);
+            }
+            dataManager.OnLastTaskCompleted(currentGroupNumber, currentTaskDetails);
+            await SystemTask.Delay(1000); // Introduce a 1-second delay
+            ActivateScreen(taskState.FinalResult);
 
-        await SystemTask.Delay(5000); // Introduce a 5-second delay
-        SceneManager.LoadScene(2);
+            //Instantiate game over UI on the Canvas
+            Instantiate(gameOverUI, gameUi.transform);
+
+            await SystemTask.Delay(5000); // Introduce a 5-second delay
+            SceneManager.LoadScene(2);
+        }
+        else
+        {
+            OnRepeatClicked();
+        }
+
+
+
     }
 
-    #endregion
+    private void OnMatchClicked()
+    {
+        gestureMatch = true;
+        gestureConfirmed = true;
+    }
+    private void OnUnMatchClicked()
+    {
+        gestureMatch = false;
+        gestureConfirmed = true;
 
+    }
+    #endregion
 
 }
 public enum taskState

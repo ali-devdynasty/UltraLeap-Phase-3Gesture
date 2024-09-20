@@ -104,6 +104,8 @@ public class GroupController : MonoBehaviour
                         gameUi.repeat.gameObject.SetActive(true);
                         gameUi.end.gameObject.SetActive(true);
                         gameUi.start.interactable = false;
+                        gameUi.match.interactable = true;
+                        gameUi.unmatch.interactable= true;
                     }
                     else
                     {
@@ -184,7 +186,7 @@ public class GroupController : MonoBehaviour
             case 1:
             case 3:
             case 4:
-                return 4f; // Example duration, set your actual duration here
+                return 1f; // Example duration, set your actual duration here
             default:
                 return 0f;
         }
