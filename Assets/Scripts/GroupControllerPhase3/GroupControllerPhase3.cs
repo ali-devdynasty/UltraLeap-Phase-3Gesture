@@ -159,7 +159,7 @@ public class GroupControllerPhase3 : MonoBehaviour
             dataManager.OnLastTaskCompleted(currentGroupNumber, currentTaskDetails);
             await SystemTask.Delay(1000); // Introduce a 1-second delay
             ActivateScreen(taskState.FinalResult);
-
+            dataManager.OnGroupCompletedPhase3(currentGroupNumber, currentTaskDetails);
             //Instantiate game over UI on the Canvas
             Instantiate(gameOverUI, gameUi.transform);
 

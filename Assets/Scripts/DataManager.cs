@@ -87,7 +87,7 @@ public class DataManager : MonoBehaviour
         float elapsedTime1 = SessionTimer.StopTimer(sessionTimerCourtine);
         sessionData.TotalSessionTime = elapsedTime1.ToString();
     }
-  
+
     internal void onWithDrawFromSession()
     {
         StopGroupTimer();
@@ -100,7 +100,7 @@ public class DataManager : MonoBehaviour
         StopGroupTimer();
         sessionData.sessionState = State.Completed;
         SaveData();
-        //Reset();
+        Reset();
     }
     public void Reset()
     {
@@ -138,10 +138,10 @@ public class DataManager : MonoBehaviour
     internal void OnStartButtonPressedOnTask(int groupNo, TaskDetails currentTask)
     {
         Debug.Log("onStartbtn press finger movement trying to save");
-        if(leftHandCoroutine != null)
-        StopCoroutine(leftHandCoroutine);
-        if(rightHandCoroutine != null)
-        StopCoroutine(rightHandCoroutine);
+        if (leftHandCoroutine != null)
+            StopCoroutine(leftHandCoroutine);
+        if (rightHandCoroutine != null)
+            StopCoroutine(rightHandCoroutine);
 
         leftHandCoroutine = null;
         rightHandCoroutine = null;
@@ -150,7 +150,7 @@ public class DataManager : MonoBehaviour
         leftHandData = new List<HandAndFingureMovement>();
 
 
-        leftHandCoroutine = StartCoroutine(startHandRecording(Chirality.Left ,groupNo,currentTask));
+        leftHandCoroutine = StartCoroutine(startHandRecording(Chirality.Left, groupNo, currentTask));
         rightHandCoroutine = StartCoroutine(startHandRecording(Chirality.Right, groupNo, currentTask));
         isRecording = true;
         Events.OnRecordingStart?.Invoke();
@@ -173,7 +173,7 @@ public class DataManager : MonoBehaviour
         Debug.Log($"Task {currentTask.taskNo} in Group {groupNo} has been reset and recording restarted.");
     }
 
-    
+
 
     internal List<HandAndFingureMovement> GetLeftHandData()
     {
@@ -187,8 +187,8 @@ public class DataManager : MonoBehaviour
         leftHandCoroutine = null;
         rightHandCoroutine = null;
 
-        sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1].LefthandAndFingureMovement = leftHandData;
-        sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1].RighthandAndFingureMovement = rightHandData;
+        sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks[currentTask.playedTime - 1].LefthandAndFingureMovement = leftHandData;
+        sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks[currentTask.playedTime - 1].RighthandAndFingureMovement = rightHandData;
         isRecording = false;
         Events.OnRecordingEnd?.Invoke();
     }
@@ -221,21 +221,21 @@ public class DataManager : MonoBehaviour
 
             subtask.timeWhenTask_COmpleted = GetCurrentTime();
 
-            if(currentTask.playedTime == 2)
+            if (currentTask.playedTime == 2)
             {
                 currentTask.isCompleted = true;
             }
         }
 
-        SetTaskPlayed(groupNo,currentTask);
+        SetTaskPlayed(groupNo, currentTask);
     }
 
-    private void SetTaskPlayed(int groupNo , TaskDetails currenttask)
+    private void SetTaskPlayed(int groupNo, TaskDetails currenttask)
     {
         var taskno = float.Parse($"{groupNo}.{currenttask.taskNo}");
         foreach (var task in TaskPlayedStates)
         {
-            if(task.TaskNo == taskno)
+            if (task.TaskNo == taskno)
             {
                 task.isPlayed = true;
             }
@@ -266,7 +266,7 @@ public class DataManager : MonoBehaviour
 
     internal void OnSkipTask(int groupNo, TaskDetails currentTask)
     {
-        var subtask = sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1];
+        var subtask = sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks[currentTask.playedTime - 1];
         subtask.state = State.Skip;
 
         var totaltime = TaskTimer.StopTimer(TaskTimerCourtine);
@@ -291,7 +291,7 @@ public class DataManager : MonoBehaviour
         }
 
         // Initialize subTasks list if it's null
-        if (sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks == null)
+        if (sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks == null)
         {
             sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks = new List<SubTasks>();
         }
@@ -303,7 +303,7 @@ public class DataManager : MonoBehaviour
 
         sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks.Add(subTask);
         SaveData();
-    } 
+    }
 
 
     private string GetCurrentTime()
@@ -318,10 +318,10 @@ public class DataManager : MonoBehaviour
 
     internal void OnLastTaskCompleted(int groupNo, TaskDetails currentTask)
     {
-        var task = sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo-1].subTasks[currentTask.playedTime - 1];
-       
-        SetTaskPlayed(groupNo,currentTask);
-       
+        var task = sessionData.groupData[groupNo - 1].tasks[currentTask.taskNo - 1].subTasks[currentTask.playedTime - 1];
+
+        SetTaskPlayed(groupNo, currentTask);
+
         if (currentTask.playedTime == 2)
         {
             currentTask.isCompleted = true;
@@ -337,7 +337,7 @@ public class DataManager : MonoBehaviour
 
 
     }
-    IEnumerator startHandRecording(Chirality hand, int groupNo , TaskDetails currenttask)
+    IEnumerator startHandRecording(Chirality hand, int groupNo, TaskDetails currenttask)
     {
         bool firstDetected = false;
         while (true)
@@ -345,19 +345,19 @@ public class DataManager : MonoBehaviour
             var data = handTrackingDataRecorder.GetHandTrackingData(hand);
             if (hand == Chirality.Left && data != null)
             {
-                if(firstDetected == false)
+                if (firstDetected == false)
                 {
                     firstDetected = true;
-                    sessionData.groupData[groupNo - 1].tasks[currenttask.taskNo - 1].subTasks[currenttask.playedTime-1].handDetectedForFirstTime = GetCurrentTime(); // index
+                    sessionData.groupData[groupNo - 1].tasks[currenttask.taskNo - 1].subTasks[currenttask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); // index
                 }
                 leftHandData.Add(data);
             }
-            else if(hand == Chirality.Right && data != null)
+            else if (hand == Chirality.Right && data != null)
             {
                 if (firstDetected == false)
                 {
                     firstDetected = true;
-                    sessionData.groupData[groupNo - 1].tasks[currenttask.taskNo - 1].subTasks[currenttask.playedTime-1].handDetectedForFirstTime = GetCurrentTime(); //idex   
+                    sessionData.groupData[groupNo - 1].tasks[currenttask.taskNo - 1].subTasks[currenttask.playedTime - 1].handDetectedForFirstTime = GetCurrentTime(); //idex   
                 }
                 rightHandData.Add(data);
             }
@@ -391,6 +391,33 @@ public class DataManager : MonoBehaviour
         sessionData.groupData[group.groupNo - 1].State = State.Completed;
         SceneManager.LoadScene(2);
     }
+
+    internal void OnGroupCompletedPhase3(int groupNo, TaskDetails currentTask)
+    {
+        TaskPlayedStates[groupNo - 1].isPlayed = true;
+
+        // Get the correct group data based on the group number
+        var groupData = sessionData.groupData[groupNo - 1];
+
+        // Mark the group as completed
+        groupData.State = State.Completed;
+
+        // Iterate through tasks and mark them as completed
+        foreach (var task in groupData.tasks)
+        {
+            foreach (var subTask in task.subTasks)
+            {
+                subTask.state = State.Completed;
+            }
+        }
+
+        // Save progress or call a scene load (based on your logic)
+        SaveData();
+
+        // Load the next scene or move to the next step of your game
+        SceneManager.LoadScene(2);
+    }
+
 }
 [Serializable]
 public class SessionData
