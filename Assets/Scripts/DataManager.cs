@@ -413,9 +413,6 @@ public class DataManager : MonoBehaviour
 
         // Save progress or call a scene load (based on your logic)
         SaveData();
-
-        // Load the next scene or move to the next step of your game
-        SceneManager.LoadScene(2);
     }
 
 }

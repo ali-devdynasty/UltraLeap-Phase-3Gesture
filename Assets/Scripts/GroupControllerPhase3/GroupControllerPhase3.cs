@@ -145,45 +145,29 @@ public class GroupControllerPhase3 : MonoBehaviour
         isGameOver = true;
         ActivateScreen(taskState.GestureDetected);
         gestureConfirmed = false;
-        while(!gestureConfirmed)
+        await SystemTask.Delay(1000);
+        if (dataManager.isRecording)
         {
-            await SystemTask.Delay(100);
+            dataManager.OnEndTaskRecording(currentGroupNumber, currentTaskDetails);
         }
-
-        if (gestureMatch)
-        {
-            if (dataManager.isRecording)
-            {
-                dataManager.OnEndTaskRecording(currentGroupNumber, currentTaskDetails);
-            }
-            dataManager.OnLastTaskCompleted(currentGroupNumber, currentTaskDetails);
-            await SystemTask.Delay(1000); // Introduce a 1-second delay
-            ActivateScreen(taskState.FinalResult);
-            dataManager.OnGroupCompletedPhase3(currentGroupNumber, currentTaskDetails);
-            //Instantiate game over UI on the Canvas
-            Instantiate(gameOverUI, gameUi.transform);
-
-            await SystemTask.Delay(5000); // Introduce a 5-second delay
-            SceneManager.LoadScene(2);
-        }
-        else
-        {
-            OnRepeatClicked();
-        }
-
-
+        dataManager.OnLastTaskCompleted(currentGroupNumber, currentTaskDetails);
+        await SystemTask.Delay(1000); // Introduce a 1-second delay
+        ActivateScreen(taskState.FinalResult);
+        dataManager.OnGroupCompletedPhase3(currentGroupNumber, currentTaskDetails);
+        //Instantiate game over UI on the Canvas
+        Instantiate(gameOverUI, gameUi.transform);
+        await SystemTask.Delay(5000); // Introduce a 5-second delay
+        SceneManager.LoadScene(2);
 
     }
 
     private void OnMatchClicked()
     {
-        gestureMatch = true;
-        gestureConfirmed = true;
+        OnGestureDetected();
     }
     private void OnUnMatchClicked()
     {
-        gestureMatch = false;
-        gestureConfirmed = true;
+      OnRepeatClicked();
 
     }
     #endregion
