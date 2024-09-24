@@ -3,6 +3,7 @@ using Leap.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -392,28 +393,51 @@ public class DataManager : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    internal void OnGroupCompletedPhase3(int groupNo, TaskDetails currentTask)
+    internal void OnGroupCompletedPhase3(int groupNo, string taskNo, TaskDetails currentTask)
     {
-        TaskPlayedStates[groupNo - 1].isPlayed = true;
+        // Get the group based on group number
+        var group = sessionData.groupData[groupNo - 1];
 
-        // Get the correct group data based on the group number
-        var groupData = sessionData.groupData[groupNo - 1];
+        // Mark task and group completion states
+        MarkTaskAsPlayed(group, taskNo);
+        MarkGroupAsCompleted(group);
 
-        // Mark the group as completed
-        groupData.State = State.Completed;
-
-        // Iterate through tasks and mark them as completed
-        foreach (var task in groupData.tasks)
+        // Save progress or handle scene loading
+        SaveData();
+    }
+    private void MarkTaskAsPlayed(GroupData group, string taskNo)
+    {
+        // Find the task within the group by task number
+        var task = group.tasks.Find(t => t.TaskNo == taskNo);
+        if (task != null)
         {
+            // Mark the task as played
+            TaskPlayedStates.FirstOrDefault(tps => tps.TaskNo == float.Parse(taskNo)).isPlayed = true;
+
+            // Update task completion count
+            int completedTimes = int.Parse(task.CompletedTimes);
+            task.CompletedTimes = (completedTimes + 1).ToString();
+
+            // Mark subtasks as completed
             foreach (var subTask in task.subTasks)
             {
                 subTask.state = State.Completed;
             }
         }
-
-        // Save progress or call a scene load (based on your logic)
-        SaveData();
     }
+    private void MarkGroupAsCompleted(GroupData group)
+    {
+        // Check if all tasks in the group are completed
+        bool allTasksCompleted = group.tasks.All(t => t.subTasks.All(st => st.state == State.Completed));
+
+        if (allTasksCompleted)
+        {
+            // If all tasks are completed, mark the group as completed
+            group.State = State.Completed;
+        }
+    }
+
+
 
 }
 [Serializable]
