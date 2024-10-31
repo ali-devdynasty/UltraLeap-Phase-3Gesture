@@ -23,11 +23,11 @@ public class DownwardSwipeDetection : MonoBehaviour
             if (!indexFingerExtended && IsIndexFingerOnlyExtended(hand))
             {
                 indexFingerExtended = true;
-                Debug.Log("Index finger is extended");
+                Debug.Log("Index finger is extended, ready for downward swipe");
             }
 
-            // Step 2: Detect when the hand is moving downward while the index finger is extended
-            if (indexFingerExtended && !swipeDetected && IsMovingDownward(hand) && Time.timeScale != 0)
+            // Step 2: Check if the hand is moving downward while the index finger remains extended
+            if (indexFingerExtended && IsMovingDownward(hand) && !swipeDetected && Time.timeScale != 0)
             {
                 swipeDetected = true;
                 Debug.Log("Downward swipe detected");

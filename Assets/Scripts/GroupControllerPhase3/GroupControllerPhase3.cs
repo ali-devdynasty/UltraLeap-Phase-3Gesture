@@ -121,7 +121,7 @@ public class GroupControllerPhase3 : MonoBehaviour
         dataManager.OnSkipTask(currentGroupNumber, currentTaskDetails);
 
         //Load the next scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(2);
     }
 
     public async void OnStartClicked()
