@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 8655176660950516443}
   - component: {fileID: 9204704453346089059}
   m_Layer: 5
-  m_Name: BottomBar
+  m_Name: UpperBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1047,8 +1047,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: -27
-    m_Right: 0
+    m_Left: -91
+    m_Right: -51
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
@@ -1211,7 +1211,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: -18
+  m_Spacing: -17.81
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

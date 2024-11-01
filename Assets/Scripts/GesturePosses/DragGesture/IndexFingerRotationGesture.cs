@@ -6,30 +6,33 @@ using System.Collections.Generic; // Add this using directive
 public class IndexFingerRotationGesture : MonoBehaviour
 {
     Controller leapController;
-    const float rotationThreshold = 0.5f; // Adjust threshold as needed
-    const float referenceAngle = 90f; // Angle to compare for clockwise rotation
-    const Finger.FingerType fingerType = Finger.FingerType.TYPE_INDEX; // Finger type to track
+    const float minRotationAngle = 30f; // Minimum angle threshold for rotation
+    const Finger.FingerType fingerType = Finger.FingerType.TYPE_INDEX;
     public GroupControllerPhase3 groupController;
+    private Vector3 lastDirection;
+    private float cumulativeAngle;
 
     void Start()
     {
         leapController = new Controller();
+        lastDirection = Vector3.zero;
+        cumulativeAngle = 0f;
     }
 
     void Update()
     {
         Frame frame = leapController.Frame();
-        List<Hand> hands = frame.Hands; // Use List<Hand> instead of HandList
+        List<Hand> hands = frame.Hands;
 
         foreach (Hand hand in hands)
         {
             if (IsIndexExtended(hand))
             {
-                // Log that the index finger is extended
-                Debug.Log("Index finger is extended.");
-
-                // Now check for clockwise rotation
                 DetectClockwiseRotation(hand);
+            }
+            else
+            {
+                ResetGesture(); // Reset if the index is not extended
             }
         }
     }
@@ -37,7 +40,8 @@ public class IndexFingerRotationGesture : MonoBehaviour
     bool IsIndexExtended(Hand hand)
     {
         Finger index = hand.Fingers[(int)fingerType];
-        return index.IsExtended && !hand.Fingers[(int)Finger.FingerType.TYPE_THUMB].IsExtended &&
+        return index.IsExtended &&
+               !hand.Fingers[(int)Finger.FingerType.TYPE_THUMB].IsExtended &&
                !hand.Fingers[(int)Finger.FingerType.TYPE_MIDDLE].IsExtended &&
                !hand.Fingers[(int)Finger.FingerType.TYPE_RING].IsExtended &&
                !hand.Fingers[(int)Finger.FingerType.TYPE_PINKY].IsExtended;
@@ -46,23 +50,40 @@ public class IndexFingerRotationGesture : MonoBehaviour
     void DetectClockwiseRotation(Hand hand)
     {
         Finger index = hand.Fingers[(int)fingerType];
-        Vector3 indexDirection = new Vector3(index.Direction.x, index.Direction.y, index.Direction.z);
+        Vector3 currentDirection = new Vector3(index.Direction.x, 0, index.Direction.z); // Project onto XZ plane
 
-        // Calculate angle in x-z plane relative to a reference direction (assuming positive x-axis is the reference)
-        float angle = Mathf.Atan2(indexDirection.z, indexDirection.x) * Mathf.Rad2Deg;
+        // Initialize lastDirection on first detection
+        if (lastDirection == Vector3.zero)
+        {
+            lastDirection = currentDirection;
+            return;
+        }
 
-        // Adjust angle to range 0-360 degrees
+        // Calculate the signed angle for clockwise movement
+        float angle = Vector3.SignedAngle(lastDirection, currentDirection, Vector3.up);
+
+        // Only accumulate clockwise rotation (negative angle values)
         if (angle < 0)
         {
-            angle += 360f;
+            cumulativeAngle += -angle; // Add the absolute value to cumulativeAngle
         }
 
-        // Check if angle indicates clockwise rotation
-        if (angle < referenceAngle && angle > referenceAngle - rotationThreshold && Time.timeScale != 0)
+        // Check if cumulative clockwise rotation exceeds the threshold
+        if (cumulativeAngle >= minRotationAngle)
         {
-            Debug.Log("Index finger is extended and rotating clockwise.");
+            Debug.Log("Index finger rotated clockwise.");
             groupController.OnGestureDetected();
-            // Add your clockwise rotation handling code here
+            ResetGesture(); // Reset after successful detection
         }
+
+        // Update lastDirection for the next frame
+        lastDirection = currentDirection;
+    }
+
+    void ResetGesture()
+    {
+        lastDirection = Vector3.zero;
+        cumulativeAngle = 0f;
     }
 }
+
